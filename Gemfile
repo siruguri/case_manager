@@ -11,6 +11,8 @@ gem 'rails', '~> 4'
 
 gem 'thin'
 
+# Admin Interface
+gem 'rails_admin'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -47,10 +49,6 @@ gem 'geocoder'
 gem 'devise'
 gem 'haml-rails'
 gem 'cancan'
-
-gem 'resque'
-gem 'resque-web', require: 'resque_web'
-gem 'resque-scheduler'
 
 group :production do
   gem 'pg'

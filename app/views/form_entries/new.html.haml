@@ -1,0 +1,26 @@
+.forms
+  .form-header
+    = image_tag 'find_logo.png', alt: "Family Information Navigation Desk"
+    %h2 ELIGIBILITY FORM
+
+  = "Form Number: #{@view_info[:form_structure].form_number}"
+
+  = form_tag "/form_entries" do
+    = hidden_field_tag :form_structure_id, @view_info[:form_structure].id
+    = fields_for(@client) do |c|
+      = c.label :last_name, "Last Name:"
+      = c.text_field :last_name
+      = c.label :first_name, "First Name:"
+      = c.text_field :first_name
+      = c.label :mr_number, "MR #:"
+      = c.text_field :mr_number
+    %hr
+
+    - @form_questions.each do |fq|
+      = label_tag "form_qn_key_#{fq[:key]}", fq[:display_value]
+      = select_tag "form_qn_key_#{fq[:key]}", options_for_select(fq[:choices_array], multiple: (fq[:type]=='multiple_choice'))
+      %hr
+      
+    = submit_tag "Done"
+
+

@@ -10,7 +10,7 @@ Bundler.require(:default, Rails.env)
 require 'dotenv'
 Dotenv.load
 
-module TestDk
+module CaseManager
   class NoTokenException < Exception
   end
 

@@ -6,7 +6,7 @@ This Rails 4.1.4 app sets up the basic code for a skeleton app:
 
 * There some basic models, each meant to do somethign interesting:
   * Task: It borrows code from a standard scaffold structure. It showcases a simple association - belongs_to :owner, class_name: "User"
-  * Location: It showcases geocoding.
+  * Location: It showcases geocoding. There is no geo-spatial search so that the default baseline functionality doesn't require Postgres.
 * Devise and Cancan are set up:
   * Devise uses User as the model for authentication; no other config changes are made for Devise other than those in the default gem. Devise views are installed.
   * CanCan uses a simple authentication using the Task => User association
@@ -15,6 +15,7 @@ This Rails 4.1.4 app sets up the basic code for a skeleton app:
 * The layout puts notice and alert at the top of the page, and a float:right element to accommodate the user session (logged-in/out) state.
 * The application layout uses Twitter Bootstrap CSS.
 * The app has Capistrano installed with some basic defaults that assist in making deployments to a remote folder via SSH, like sym-linking to an existing database, to the database config file so that credentials are not stored in the SCS, etc.
+* There is a new task to manage multiple seed files - `db:seed:*`. If you create a file named `seed_the_users.rb` in `db\seeds`, you can run the task `rake db:seed:seed_the_users`, for example.
 
 ## Usage
 

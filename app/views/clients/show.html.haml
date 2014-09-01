@@ -1,0 +1,15 @@
+.clients
+  %h3
+    Client Record MR Number 
+    = @client.mr_number
+
+  = "#{@client.first_name} #{@client.last_name}"
+
+  .section-title
+    Forms entered for this client
+
+  %ol
+    - @forms.each do |fe|
+      %li
+        Entry #
+        = fe.id

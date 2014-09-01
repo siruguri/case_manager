@@ -1,0 +1,7 @@
+%h3
+  All Clients In System
+
+- @clients.each do |c|
+  Name: 
+  = link_to "#{c.first_name} #{c.last_name}", c
+  %hr

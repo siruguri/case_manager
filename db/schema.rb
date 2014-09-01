@@ -11,22 +11,74 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140220054846) do
+ActiveRecord::Schema.define(version: 20140829214230) do
 
-  create_table "categories", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "address_entries", force: true do |t|
+    t.float   "lat"
+    t.float   "long"
+    t.string  "street1"
+    t.string  "street2"
+    t.string  "city"
+    t.string  "state"
+    t.integer "zip"
   end
 
-  create_table "locations", force: true do |t|
-    t.float    "lat"
-    t.float    "long"
-    t.string   "name"
-    t.string   "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "owner_id"
+  create_table "clients", force: true do |t|
+    t.string  "first_name"
+    t.string  "last_name"
+    t.integer "age"
+    t.integer "mr_number"
+    t.integer "family_id"
+  end
+
+  create_table "contact_entries", force: true do |t|
+    t.string  "type"
+    t.string  "value"
+    t.integer "client_id"
+  end
+
+  create_table "families", force: true do |t|
+    t.integer "size"
+  end
+
+  create_table "field_notes", force: true do |t|
+    t.text    "entry"
+    t.integer "author_id"
+    t.integer "client_id"
+  end
+
+  create_table "form_cross_references", force: true do |t|
+    t.integer "form_entry_id"
+    t.string  "cross_reference_class"
+    t.integer "cross_reference_id"
+  end
+
+  create_table "form_entries", force: true do |t|
+    t.integer "form_structure_id"
+  end
+
+  create_table "form_structure_entries", force: true do |t|
+    t.integer "boolean_question_id"
+    t.integer "form_structure_id"
+    t.integer "multiple_choice_question_id"
+  end
+
+  create_table "form_structures", force: true do |t|
+    t.string "form_number"
+  end
+
+  create_table "multiple_choice_entries", force: true do |t|
+    t.integer "choice_index"
+    t.integer "multiple_choice_question_id"
+    t.integer "form_entry_id"
+  end
+
+  create_table "multiple_choice_questions", force: true do |t|
+    t.string  "display_value"
+    t.text    "choices"
+    t.boolean "is_boolean"
+    t.boolean "allows_multiple"
+    t.string  "key"
   end
 
   create_table "navbar_entries", force: true do |t|
@@ -75,24 +127,15 @@ ActiveRecord::Schema.define(version: 20140220054846) do
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
 
-  create_table "task_categorizations", force: true do |t|
-    t.integer  "task_id"
-    t.integer  "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "parent_child_relationships", force: true do |t|
+    t.integer "child_id"
+    t.integer "parent_id"
+    t.integer "family_id"
   end
 
-  create_table "tasks", force: true do |t|
-    t.string   "title"
-    t.integer  "owner_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.date     "due_date"
-  end
-
-  create_table "test_models", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "service_locations", force: true do |t|
+    t.string  "name"
+    t.integer "address_entry_id"
   end
 
   create_table "users", force: true do |t|
@@ -109,10 +152,16 @@ ActiveRecord::Schema.define(version: 20140220054846) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin"
-    t.integer  "age"
+    t.boolean  "speaks_spanish"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "visits", force: true do |t|
+    t.datetime "visit_date"
+    t.integer  "client_id"
+    t.integer  "service_location_id"
+  end
 
 end

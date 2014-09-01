@@ -20,9 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  site_title: "A Basic Rails App"
+  site_title: "FIND Case Manager"
+  site_brand: "FIND Case Manager"
   successful_resource_creation: "Resource successfully created"
   successful_resource_update: "Resource successfully updated"
   errors_found: "Errors found"
   access_denied_message: "Please sign in to access that page."
   message_404: "You appear to want something that's not there."
+  successful_form_entry: "Form entry created successfully"
+  dropdown_yes: 'Yes'
+  dropdown_no: 'No'
