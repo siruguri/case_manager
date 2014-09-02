@@ -5,6 +5,8 @@ class CreateMultipleChoiceQuestion < ActiveRecord::Migration
       t.text :choices
       t.boolean :is_boolean
       t.boolean :allows_multiple
+
+      t.timestamps
     end
   end
 end

@@ -3,6 +3,8 @@ class CreateServiceLocations < ActiveRecord::Migration
     create_table :service_locations do |t|
       t.string :name
       t.integer :address_entry_id
+
+      t.timestamps
     end
   end
 end

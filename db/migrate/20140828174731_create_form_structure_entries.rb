@@ -3,6 +3,8 @@ class CreateFormStructureEntries < ActiveRecord::Migration
     create_table :form_structure_entries do |t|
       t.integer :boolean_question_id
       t.integer :form_structure_id
+
+      t.timestamps
     end
   end
 end

@@ -4,6 +4,8 @@ class CreateFieldNotes < ActiveRecord::Migration
       t.text :entry
       t.integer :author_id
       t.integer :client_id
+
+      t.timestamps
     end
   end
 end

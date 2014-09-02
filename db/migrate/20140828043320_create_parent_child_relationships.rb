@@ -4,6 +4,8 @@ class CreateParentChildRelationships < ActiveRecord::Migration
       t.integer :child_id
       t.integer :parent_id
       t.integer :family_id
+
+      t.timestamps
     end
   end
 end

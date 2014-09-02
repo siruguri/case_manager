@@ -12,7 +12,7 @@ gem 'rails', '~> 4'
 gem 'thin'
 
 # Admin Interface
-gem 'rails_admin'
+gem 'rails_admin', github: 'sferik/rails_admin'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -25,6 +25,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails', github: 'joliss/jquery-ui-rails'
 
 # Needed for default layouts
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

@@ -9,11 +9,14 @@ class FormEntriesController < ApplicationController
       where(form_structure_entries: {form_structure_id: form_structure_id})
 
     @form_questions = mcs.map do |q_instance|
-      h = {display_value: q_instance.display_value, key: q_instance.key, multiple: q_instance.allows_multiple}
+      h = {display_value: q_instance.display_value, id: q_instance.id, multiple: q_instance.allows_multiple}
       if q_instance.is_boolean
-        h[:choices_array] = ['Yes', 'No']
+        h[:choices_array] = {'Yes'=>0, 'No'=>1}
       else
-        h[:choices_array] = q_instance.choices.split(',')
+        h[:choices_array] = {}
+        q_instance.choice_array.each_with_index do |item, idx|
+          h[:choices_array][item] = idx
+        end
       end
       h
     end
@@ -22,19 +25,20 @@ class FormEntriesController < ApplicationController
   end
 
   def create
-
-    if params[:patient_id]
-      client = Client.find params[:patient_id]
-    else
+    client = Client.find_by_mr_number params[:client][:mr_number]
+    if client.nil?
       # This is for a client who's not in the database
       c_p = params[:client]
       client = Client.new(c_p.permit(:first_name, :last_name, :mr_number))
+      client.save
     end
-    client.save unless client.id
 
     fe = FormEntry.new
     fe.form_structure = FormStructure.find params[:form_structure_id]
     fe.save
+    params[:multiple_choice_entries].each do |qn_id, idx|
+      m = MultipleChoiceEntry.create(multiple_choice_question_id: qn_id, choice_index: idx, form_entry_id: fe.id)
+    end
 
     xref = FormCrossReference.new(cross_reference_class: 'Client', cross_reference_id: client.id)
     xref.save
@@ -45,6 +49,13 @@ class FormEntriesController < ApplicationController
     redirect_to :root
   end
 
+  def show
+    @form_entry = FormEntry.find params[:id]
+    @disp_array = @form_entry.multiple_choice_entries.map do |mc_ent|
+      norm_qn = mc_ent.multiple_choice_question
+      {dv: norm_qn.display_value, ans: norm_qn.choice_array[mc_ent.choice_index]}
+    end
+  end
 end
 
 

@@ -11,5 +11,4 @@
   %ol
     - @forms.each do |fe|
       %li
-        Entry #
-        = fe.id
+        = link_to "Entry ##{fe.id}", fe

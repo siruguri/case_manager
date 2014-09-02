@@ -4,6 +4,8 @@ class CreateVisits < ActiveRecord::Migration
       t.datetime :visit_date
       t.integer :client_id
       t.integer :service_location_id
+
+      t.timestamps
     end
   end
 end

@@ -4,6 +4,8 @@ class CreateMultipleChoiceEntries < ActiveRecord::Migration
       t.integer :choice_index
       t.integer :multiple_choice_question_id
       t.integer :form_entry_id
+
+      t.timestamps
     end
   end
 end

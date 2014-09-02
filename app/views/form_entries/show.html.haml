@@ -1,0 +1,16 @@
+.forms
+  %h1 
+    Form Entry #
+    = @form_entry.id
+
+  %h1
+    Responses
+
+  - @disp_array.each do |disp|
+    %hr
+    %span.form_question
+      = disp[:dv]
+    %span.form_answer
+      = disp[:ans]
+
+  

@@ -6,6 +6,8 @@ class CreateClients < ActiveRecord::Migration
       t.integer :age
       t.integer :mr_number
       t.integer :family_id
+
+      t.timestamps
     end
   end
 end
