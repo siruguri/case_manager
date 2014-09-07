@@ -7,5 +7,8 @@ class Client < ActiveRecord::Base
   has_many :contact_entries
   has_many :field_notes
 
+  def display_name
+    "#{self.first_name} #{self.last_name}"
+  end
 
 end

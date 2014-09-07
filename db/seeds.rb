@@ -16,6 +16,9 @@ u2 = User.find_or_create_by(email: 'just_u@me.com') do |u|
   u.admin=false
 end
 
-NavbarEntry.find_or_create_by(title: "Clients") do |ne|
-  ne.url='/clients'
+entries = [{title: 'Clients', url: '/clients'}, {title: 'New Form', url: '/form_entries/new?form_number=1'}]
+entries.each do |ent|
+  ne = NavbarEntry.find_or_initialize_by(title: ent[:title])
+  ne.url= ent[:url]
+  ne.save
 end

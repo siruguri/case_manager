@@ -13,6 +13,8 @@ class Api::V1::ClientsController < ApplicationController
       {id: ct.id, label: ct.send(search_attr.to_sym), last_name: ct.last_name,
       first_name: ct.first_name, mr_number: ct.mr_number}
     end
+    
+    puts ">> response #{autolist.to_json}"
 
     respond_to do |fmt|
       fmt.json { render json: autolist }

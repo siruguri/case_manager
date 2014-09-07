@@ -14,71 +14,93 @@
 ActiveRecord::Schema.define(version: 20140829214230) do
 
   create_table "address_entries", force: true do |t|
-    t.float   "lat"
-    t.float   "long"
-    t.string  "street1"
-    t.string  "street2"
-    t.string  "city"
-    t.string  "state"
-    t.integer "zip"
+    t.float    "lat"
+    t.float    "long"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "clients", force: true do |t|
-    t.string  "first_name"
-    t.string  "last_name"
-    t.integer "age"
-    t.integer "mr_number"
-    t.integer "family_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "age"
+    t.integer  "mr_number"
+    t.integer  "family_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contact_entries", force: true do |t|
-    t.string  "type"
-    t.string  "value"
-    t.integer "client_id"
+    t.string   "type"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "client_id"
   end
 
   create_table "families", force: true do |t|
-    t.integer "size"
+    t.integer  "size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "field_notes", force: true do |t|
-    t.text    "entry"
-    t.integer "author_id"
-    t.integer "client_id"
+    t.text     "entry"
+    t.integer  "author_id"
+    t.integer  "client_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "form_cross_references", force: true do |t|
-    t.integer "form_entry_id"
-    t.string  "cross_reference_class"
-    t.integer "cross_reference_id"
+    t.integer  "form_entry_id"
+    t.string   "cross_reference_class"
+    t.integer  "cross_reference_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "form_entries", force: true do |t|
-    t.integer "form_structure_id"
+    t.integer  "form_structure_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "form_structure_entries", force: true do |t|
-    t.integer "boolean_question_id"
-    t.integer "form_structure_id"
-    t.integer "multiple_choice_question_id"
+    t.integer  "boolean_question_id"
+    t.integer  "form_structure_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "multiple_choice_question_id"
   end
 
   create_table "form_structures", force: true do |t|
-    t.string "form_number"
+    t.string   "form_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "multiple_choice_entries", force: true do |t|
-    t.integer "choice_index"
-    t.integer "multiple_choice_question_id"
-    t.integer "form_entry_id"
+    t.integer  "choice_index"
+    t.integer  "multiple_choice_question_id"
+    t.integer  "form_entry_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "multiple_choice_questions", force: true do |t|
-    t.string  "display_value"
-    t.text    "choices"
-    t.boolean "is_boolean"
-    t.boolean "allows_multiple"
-    t.string  "key"
+    t.string   "display_value"
+    t.text     "choices"
+    t.boolean  "is_boolean"
+    t.boolean  "allows_multiple"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "key"
   end
 
   create_table "navbar_entries", force: true do |t|
@@ -128,14 +150,18 @@ ActiveRecord::Schema.define(version: 20140829214230) do
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
 
   create_table "parent_child_relationships", force: true do |t|
-    t.integer "child_id"
-    t.integer "parent_id"
-    t.integer "family_id"
+    t.integer  "child_id"
+    t.integer  "parent_id"
+    t.integer  "family_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "service_locations", force: true do |t|
-    t.string  "name"
-    t.integer "address_entry_id"
+    t.string   "name"
+    t.integer  "address_entry_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -162,6 +188,8 @@ ActiveRecord::Schema.define(version: 20140829214230) do
     t.datetime "visit_date"
     t.integer  "client_id"
     t.integer  "service_location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

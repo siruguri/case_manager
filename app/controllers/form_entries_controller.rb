@@ -51,7 +51,14 @@ class FormEntriesController < ApplicationController
 
   def show
     @form_entry = FormEntry.find params[:id]
-    @disp_array = @form_entry.multiple_choice_entries.map do |mc_ent|
+    @disp_array = {}
+
+    ct_ref = @form_entry.form_cross_references.select { |x| x.cross_reference_class == 'Client' }.first
+    ct = Client.find ct_ref.cross_reference_id
+
+    @disp_array[:client]=ct
+
+    @disp_array[:answers] = @form_entry.multiple_choice_entries.map do |mc_ent|
       norm_qn = mc_ent.multiple_choice_question
       {dv: norm_qn.display_value, ans: norm_qn.choice_array[mc_ent.choice_index]}
     end

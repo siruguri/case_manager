@@ -3,10 +3,14 @@
     Form Entry #
     = @form_entry.id
 
+  %h2
+    Client: 
+    = @disp_array[:client].display_name
+
   %h1
     Responses
 
-  - @disp_array.each do |disp|
+  - @disp_array[:answers].each do |disp|
     %hr
     %span.form_question
       = disp[:dv]
