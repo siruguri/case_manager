@@ -48,7 +48,7 @@ class FormEntriesController < ApplicationController
     fe.form_cross_references << xref
 
     flash[:notice] = "#{t(:successful_form_entry)} for patient ID #{client.id}"
-    redirect_to :root
+    redirect_to '/profile'
   end
 
   def show

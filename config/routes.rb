@@ -14,6 +14,9 @@ CaseManager::Application.routes.draw do
   devise_for :users
   resources :users, path: 'profiles'
 
+  # Routes for my own profile
+  get '/profile' => 'profiles#show'
+
   root to: 'welcome#home' # Change this to something else in your app.
 
 

@@ -16,8 +16,13 @@ class ApplicationController < ActionController::Base
     error_message = I18n.t(:message_404)
     go_back_or_root(error_message)
   end
+  rescue_from Errors::NeedsSignInException do |exception|
+    error_message = I18n.t(exception.message)
+    go_back_or_root(error_message)
+  end
+    
   rescue_from CanCan::AccessDenied do |exception|
-    error_message = I18n.t(ErrorMessages.pretty_denial_message(exception.action, exception.subject))
+    error_message = I18n.t(Errors.pretty_denial_message(exception.action, exception.subject))
     go_back_or_root(error_message)
   end
 

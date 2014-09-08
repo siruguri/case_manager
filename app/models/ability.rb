@@ -6,11 +6,13 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     if user.id
-      
 
       if user.admin?
         can :manage, :all
       end
+
+      # Users can see their own profiles
+      can :manage, User, {id: user.id}
       
       if user.has_role(:volunteer)
         can :create, FormEntry
