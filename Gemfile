@@ -93,3 +93,8 @@ group :test do
 end
 
 gem 'dotenv-rails', groups: [:development, :test]
+
+# Resque for emails
+gem "resque"
+gem 'resque-web', require: 'resque_web'
+gem 'resque-scheduler'

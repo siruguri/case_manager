@@ -1,3 +1,5 @@
+require 'resque_web'
+
 CaseManager::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin_interface', as: 'rails_admin'
@@ -20,6 +22,17 @@ CaseManager::Application.routes.draw do
       get '/clients' => 'clients#search'
     end
   end
+
+  resque_web_constraint = lambda do |request|
+    current_user = request.env['warden'].user
+    current_user.present? && current_user.respond_to?(:is_admin?) && current_user.is_admin?
+  end
+
+  constraints resque_web_constraint do
+    mount ResqueWeb::Engine => "/resque_web"
+  end
+
+  get "run_alert" => "alerts#run_alert"
 
   # The rest of the routes file is probably useless to most new apps based on this template, EXCEPT for the 
   # 404 catchall below which has to always be at the end.
