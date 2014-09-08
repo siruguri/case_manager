@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829214230) do
+ActiveRecord::Schema.define(version: 20140908012421) do
 
   create_table "address_entries", force: true do |t|
     t.float    "lat"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20140829214230) do
     t.integer  "form_structure_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "form_author_id"
   end
 
   create_table "form_structure_entries", force: true do |t|
@@ -157,6 +158,12 @@ ActiveRecord::Schema.define(version: 20140829214230) do
     t.datetime "updated_at"
   end
 
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "service_locations", force: true do |t|
     t.string   "name"
     t.integer  "address_entry_id"
@@ -179,6 +186,8 @@ ActiveRecord::Schema.define(version: 20140829214230) do
     t.datetime "updated_at"
     t.boolean  "admin"
     t.boolean  "speaks_spanish"
+    t.integer  "role_id"
+    t.integer  "manager_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

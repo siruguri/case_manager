@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -15,7 +17,7 @@ class ApplicationController < ActionController::Base
     go_back_or_root(error_message)
   end
   rescue_from CanCan::AccessDenied do |exception|
-    error_message = I18n.t(:access_denied_message)
+    error_message = I18n.t(ErrorMessages.pretty_denial_message(exception.action, exception.subject))
     go_back_or_root(error_message)
   end
 

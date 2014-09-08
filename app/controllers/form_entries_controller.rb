@@ -1,4 +1,6 @@
 class FormEntriesController < ApplicationController
+  load_and_authorize_resource
+
   def new
     # Assumes the form structure ref is provided as :form_number
     form_structure_id = params[:form_number]
