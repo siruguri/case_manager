@@ -2,4 +2,6 @@
   Your Clients
 
 %h1
-  Your Alerts
+  Your Form Entries
+
+= render partial: 'form_entries/entry_list', locals: {entries: @user.form_entries}

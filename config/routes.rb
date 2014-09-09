@@ -28,11 +28,12 @@ CaseManager::Application.routes.draw do
 
   resque_web_constraint = lambda do |request|
     current_user = request.env['warden'].user
-    current_user.present? && current_user.respond_to?(:is_admin?) && current_user.is_admin?
+    puts ">>> Checking user for admin: #{current_user.is_admin?}"
+    !(current_user.nil?) && current_user.is_admin?
   end
 
   constraints resque_web_constraint do
-    mount ResqueWeb::Engine => "/resque_web"
+    mount ResqueWeb::Engine => "/jobs_list" #, as: "/resque_web"
   end
 
   get "run_alert" => "alerts#run_alert"

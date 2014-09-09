@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :manager, class_name: 'User'
 
+  has_many :form_entries, foreign_key: :form_author_id
+  
   def is_admin?
     self.admin
   end

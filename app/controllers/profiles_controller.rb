@@ -5,6 +5,8 @@ class ProfilesController < ApplicationController
     if current_user.nil?
       raise Errors::NeedsSignInException
     end
+
+    @user = current_user
   end
 
 end

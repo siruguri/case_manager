@@ -37,7 +37,9 @@ class FormEntriesController < ApplicationController
 
     fe = FormEntry.new
     fe.form_structure = FormStructure.find params[:form_structure_id]
+    fe.form_author = current_user
     fe.save
+
     params[:multiple_choice_entries].each do |qn_id, idx|
       m = MultipleChoiceEntry.create(multiple_choice_question_id: qn_id, choice_index: idx, form_entry_id: fe.id)
     end

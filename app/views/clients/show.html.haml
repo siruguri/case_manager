@@ -9,6 +9,4 @@
     Forms entered for this client
 
   %ol
-    - @forms.each do |fe|
-      %li
-        = link_to "Entry ##{fe.id}", fe
+    = render partial: 'form_entries/entry_list', locals: {entries: @forms}
