@@ -20,9 +20,12 @@ CaseManager::Application.routes.draw do
   root to: 'welcome#home' # Change this to something else in your app.
 
 
-  namespace :api, defaults: {format: 'json'} do
-    namespace :v1 do
-      get '/clients' => 'clients#search'
+ constraints(format: /json/) do
+    namespace :api, defaults: {format: 'json'} do
+      namespace :v1 do
+        get '/clients' => 'clients#search'
+        post '/profile/:action.:format' => 'profiles#process_action'
+      end
     end
   end
 

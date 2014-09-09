@@ -1,4 +1,4 @@
-$ ->
+autoc_fn = ->
   $(".autocomplete").autocomplete({
     source: (req, resp) ->
       $.ajax({
@@ -14,4 +14,7 @@ $ ->
       $("#client_id").val(ui.item.id)
       null
     })
+
+$(document).ready(autoc_fn)
+$(document).on('page:load', autoc_fn)
 

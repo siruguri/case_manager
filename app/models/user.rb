@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   end
 
   def has_role(sym)
-    self.role.name.to_sym == sym
+    # The admins have all roles.
+    self.is_admin? or self.role.name.to_sym == sym
   end
 
 end
