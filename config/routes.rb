@@ -31,7 +31,7 @@ CaseManager::Application.routes.draw do
 
   resque_web_constraint = lambda do |request|
     current_user = request.env['warden'].user
-    puts ">>> Checking user for admin: #{current_user.is_admin?}"
+    puts ">>> Checking user for admin: #{current_user.is_admin?}" unless current_user.nil?
     !(current_user.nil?) && current_user.is_admin?
   end
 

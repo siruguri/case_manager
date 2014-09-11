@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   belongs_to :role
   belongs_to :manager, class_name: 'User'
+  has_many :volunteers, class_name: 'User', foreign_key: :manager_id
 
   has_many :form_entries, foreign_key: :form_author_id
   has_many :user_actions
@@ -20,6 +21,18 @@ class User < ActiveRecord::Base
       sym = sym.to_sym
     end
     self.is_admin? or self.role.name.to_sym == sym
+  end
+
+
+  def is_current?
+    # If actions are more recent than some number of days
+    self.user_actions.each do |act|
+      if act.created_at > Time.now - 15.days # TODO Need to add type of action here, and parametrize the time period
+        return true
+      end
+    end
+
+    return false
   end
 
 end
