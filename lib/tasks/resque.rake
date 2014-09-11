@@ -22,7 +22,7 @@ namespace :resque do
     # be a hash.  YAML is usually the easiest.
     # Resque.schedule = YAML.load_file('your_resque_schedule.yml')
 
-#    Resque.schedule = {do_expired: {queue: 'task4', class: "SendMailAlerts", every: ['5m', {first_in: '5s'}], description: "This will find expired tasks."} }	
+    Resque.schedule = {test_tasks: {queue: 'alert_emails', class: "SendMailAlert", every: ['1m', {first_in: '5s'}], description: "This will test the scheduler." } }	
 
   end
 end

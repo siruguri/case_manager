@@ -9,9 +9,22 @@ User.find_or_create_by(email: 'admin@casemanager.com') do |u|
   u.admin=true
 end
 
-User.find_or_create_by(email: 'vol1@casemanager.com') do |u|
-  u.password='volpass123'
-  u.role = Role.find_by_name('volunteer')
-  u.admin=false
-end
+v = User.where(email: 'vol1@casemanager.com').first_or_initialize
+v.password='volpass123'
+v.role = Role.find_by_name('volunteer')
+v.admin=false
+v.full_name='Volunteer One'
+v.contact_email='siruguri@gmail.com'
+v.save
 
+m = User.where(email: 'mgr1@casemanager.com').first_or_initialize
+m.password='mgrpass123'
+m.role = Role.find_by_name('manager')
+m.admin=false
+m.full_name='Jacques K'
+m.save
+
+unless v.manager
+  v.manager = m
+  v.save
+end

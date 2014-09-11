@@ -8,13 +8,17 @@ class User < ActiveRecord::Base
   belongs_to :manager, class_name: 'User'
 
   has_many :form_entries, foreign_key: :form_author_id
-  
+  has_many :user_actions
+
   def is_admin?
     self.admin
   end
 
   def has_role(sym)
     # The admins have all roles.
+    if sym.class==String
+      sym = sym.to_sym
+    end
     self.is_admin? or self.role.name.to_sym == sym
   end
 

@@ -1,0 +1,14 @@
+= "Hi, #{@manager.full_name}"
+%p
+
+This is a notification from your FIND Case Manager system, alerting you that
+
+= @vol.full_name
+
+has not completed a key action in the last two weeks.
+
+%p
+
+Please review this volunteer's record on their
+
+= link_to 'your Case Manager dashboard', '/profile'

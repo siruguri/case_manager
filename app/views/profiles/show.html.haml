@@ -5,3 +5,13 @@
   Your Form Entries
 
 = render partial: 'form_entries/entry_list', locals: {entries: @user.form_entries}
+
+%h1
+  Your Past Actions
+
+= text_field_tag :action_desc, nil, placeholder: 'Enter New Action', size: 50
+= button_tag 'Add To Your Record', id: 'add_action'
+
+%hr
+
+= render partial: 'actions_list', locals: {user: @user}

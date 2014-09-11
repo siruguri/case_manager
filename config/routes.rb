@@ -1,5 +1,6 @@
 require 'resque_web'
 
+ResqueWeb::Engine.eager_load!
 CaseManager::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin_interface', as: 'rails_admin'
@@ -19,12 +20,11 @@ CaseManager::Application.routes.draw do
 
   root to: 'welcome#home' # Change this to something else in your app.
 
-
- constraints(format: /json/) do
+  constraints(format: /json/) do
     namespace :api, defaults: {format: 'json'} do
       namespace :v1 do
         get '/clients' => 'clients#search'
-        post '/profile/:action.:format' => 'profiles#process_action'
+        post '/profile/:cmd(.:format)' => 'profiles#process_cmd'
       end
     end
   end
@@ -36,7 +36,7 @@ CaseManager::Application.routes.draw do
   end
 
   constraints resque_web_constraint do
-    mount ResqueWeb::Engine => "/jobs_list" #, as: "/resque_web"
+    mount ResqueWeb::Engine => "/jobs_list"
   end
 
   get "run_alert" => "alerts#run_alert"

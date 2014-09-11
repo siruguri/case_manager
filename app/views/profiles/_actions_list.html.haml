@@ -1,0 +1,6 @@
+%ul.action_list
+  - user.user_actions.each do |ua|
+    %li
+      %i><
+        = ua.description
+      = ", entered on: #{ua.created_at}"
