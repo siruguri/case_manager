@@ -7,8 +7,16 @@ class Client < ActiveRecord::Base
   has_many :contact_entries
   has_many :field_notes
 
+  belongs_to :case_contact, class_name: 'User'
+
+  has_many :client_flags
+  has_many :yes_no_flags, through: :client_flags
+
   def display_name
     "#{self.first_name} #{self.last_name}"
   end
 
+  def has_flag?(flag_name)
+    return (false or (client_flags.select { |x| x.yes_no_flag.key.to_sym==flag_name and x.is_true? }).count > 0)
+  end
 end

@@ -32,8 +32,11 @@ class FormEntriesController < ApplicationController
       # This is for a client who's not in the database
       c_p = params[:client]
       client = Client.new(c_p.permit(:first_name, :last_name, :mr_number))
-      client.save
     end
+
+    # Set a case contact for this client
+    client.case_contact = current_user
+    client.save
 
     fe = FormEntry.new
     fe.form_structure = FormStructure.find params[:form_structure_id]

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :manager, class_name: 'User'
   has_many :volunteers, class_name: 'User', foreign_key: :manager_id
+  has_many :clients, foreign_key: :case_contact_id
 
   has_many :form_entries, foreign_key: :form_author_id
   has_many :user_actions

@@ -1,6 +1,6 @@
 .profile 
-  Email:
-  = @user.email
+  .glyphicon.glyphicon-user
+  = "#{@user.full_name} (#{@user.email})"
 
   - if @user.has_role(:manager)
     %h1 
@@ -10,6 +10,7 @@
 
   %h1
     Your Clients
+  = render partial: 'clients_list', locals: {user: @user}
 
   %h1
     Your Form Entries
