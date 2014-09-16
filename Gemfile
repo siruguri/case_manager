@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 source 'https://rubygems.org'
 
-ruby '2.1.0'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4'
 
@@ -73,7 +71,7 @@ group :development do
   gem 'pry'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
 
   # This needs to be here, else 'rake spec' will output nothing.
   gem 'rspec-rails'
