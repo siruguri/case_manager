@@ -12,6 +12,7 @@ If `Terminal` doesn't automatically open a blank screen, open one using `Shell -
 In the screen that opens up, called the **command line interface** aka **the shell**, type in the following:
 
     cd Desktop/apps/case_manager
+    rake db:migrate
     rails server
 
 This should give you a message that looks something like this:
@@ -26,3 +27,22 @@ This should give you a message that looks something like this:
     Listening on 0.0.0.0:3000, CTRL+C to stop
 
 Now you should be able to open your browser, and in the address bar, type in `http://localhost:3000`. This should show you the app.
+
+# Initializing the Database
+
+The app comes with some test data already initialized for you to play around with. To do the initialization, you have to do the following:
+
+Change to the folder where the app is located. Open a _new screen_ in `Terminal` and type in:
+
+       cd Desktop/apps/case_manager
+       rake db:seed
+       rake db:seed:make_users
+       rake db:seed:make_form_structures
+       rake db:seed:clients
+
+This will create a few users - 
+
+1. An administrative user: `admin@casemanager.com`, password: `adminpass123`
+1. A volunteer: `vol1@casemanager.com`, password: `volpass123`
+1. A manager, who manages the above volunteer: `mgr1@casemanager.com`, password: `mgrpass123`
+
