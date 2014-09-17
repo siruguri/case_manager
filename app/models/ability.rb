@@ -16,6 +16,7 @@ class Ability
       
       if user.has_role(:volunteer)
         can :create, FormEntry
+        can :manage, Client, {case_contact_id: user.id}
         can [:read, :update], FormEntry do |fe|
           fe.form_author.id == user.id
         end
