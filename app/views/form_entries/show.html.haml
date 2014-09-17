@@ -5,7 +5,7 @@
 
   %h2
     Client: 
-    = @disp_array[:client].display_name
+    = @form_entry.cross_reference(xref_type: :client).display_name
 
   %h1
     Responses
