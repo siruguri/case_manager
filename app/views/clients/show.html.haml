@@ -1,12 +1,24 @@
 .clients
   %h3
-    Client Record MR Number 
-    = @client.mr_number
+    Client:
+    = "#{@client.first_name} #{@client.last_name}"
+  MR Number 
+  = @client.mr_number
 
-  = "#{@client.first_name} #{@client.last_name}"
+  %hr
+  Case Contact:
+  = @client.case_contact.full_name
+  %hr
 
   .section-title
     Forms entered for this client
 
   %ol
     = render partial: 'form_entries/entry_list', locals: {entries: @forms}
+
+  %hr
+  .section-title
+    Client Dashboard
+
+  Flag for Attention:
+  = display_flag @flags[:special_attention]

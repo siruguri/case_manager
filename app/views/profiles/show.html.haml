@@ -9,7 +9,11 @@
     %hr
 
   %h1
-    Your Clients
+    - if @user.has_role(:manager)
+      Client Alerts
+    - else
+      Your Clients
+
   = render partial: 'clients_list', locals: {user: @user}
 
   %h1

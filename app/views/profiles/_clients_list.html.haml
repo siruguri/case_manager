@@ -1,8 +1,20 @@
-%ul.action_list
-  - user.clients.each do |client|
-    %li
-      = client.display_name
-      (Needs Attention:
-      %span{class: client.has_flag?(:special_attention) ? 'red-font bold-font':'green-font'}
-        = client.has_flag?(:special_attention) ? 'Yes':'No'
-      )
+- if user.has_role :manager
+  - client_list=user.volunteers.map { |v| [v.full_name, v.clients.select { |ct| ct.has_flag?(:special_attention) }] }
+- else
+  - client_list=[[user.full_name, user.clients]]
+
+- client_list.each do |case_contact_name, clients|
+  - if user.has_role :manager
+    Case Contact:
+    = case_contact_name
+
+  %ul.action_list
+    - clients.each do |ct|
+      %li
+        = ct.display_name
+        - if user.has_role :volunteer
+          (Needs Attention:
+          %span{class: ct.has_flag?(:special_attention) ? 'red-font bold-font':'green-font'}
+            = ct.has_flag?(:special_attention) ? 'Yes':'No'
+          )
+
