@@ -14,6 +14,9 @@ class Ability
       # Users can see their own profiles
       can :manage, User, {id: user.id}
       
+      if user.has_role(:manager)
+        can :manage, Client, {case_contact_id: user.volunteers.map { |x| x.id }}
+      end
       if user.has_role(:volunteer)
         can :create, FormEntry
         can :manage, Client, {case_contact_id: user.id}

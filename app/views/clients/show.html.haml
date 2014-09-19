@@ -13,8 +13,7 @@
   .section-title
     Forms entered for this client
 
-  %ol
-    = render partial: 'form_entries/entry_list', locals: {entries: @forms}
+  = render partial: 'form_entries/entry_list', locals: {entries: @client_forms}
 
   %hr
   .section-title

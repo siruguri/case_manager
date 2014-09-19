@@ -1,9 +1,9 @@
 .forms
   .form-header
     = image_tag 'find_logo.png', alt: "Family Information Navigation Desk"
-    %h2 ELIGIBILITY FORM
-
-  = "Form Number: #{@view_info[:form_structure].form_number}"
+    %h2 
+      Form:
+      = @view_info[:form_structure].form_name
 
   = form_tag "/form_entries" do
     = hidden_field_tag :form_structure_id, @view_info[:form_structure].id
@@ -15,6 +15,10 @@
       = c.text_field :first_name, class: 'autocomplete'
       = c.label :mr_number, "MR #:"
       = c.text_field :mr_number
+      = c.fields_for :form_tracking_ids do |ft|
+        = ft.label :tracking_id, "Enrolment ID:"
+        = ft.text_field :tracking_id, class: 'enrolment-id', value: "EED#{ENV['COMPUTER_NAME']}0000", readonly: true
+
     %hr
 
     - @form_questions.each do |fq|

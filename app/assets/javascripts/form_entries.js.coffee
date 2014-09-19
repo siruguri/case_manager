@@ -12,6 +12,7 @@ autoc_fn = ->
       $("#client_last_name").val(ui.item.last_name)
       $("#client_mr_number").val(ui.item.mr_number)
       $("#client_id").val(ui.item.id)
+      $(".enrolment-id").val $(".enrolment-id").val().replace(/\d+$/, ui.item.id)
       null
     })
 

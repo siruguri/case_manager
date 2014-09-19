@@ -1,6 +1,6 @@
 %ul
   - entries.each do |fe|
-    - client = fe.cross_reference(xref_type: :client).nil? ? 'No client!' : fe.cross_reference(xref_type: :client).display_name
     %li
+      - client = fe.client_cross_reference
       = link_to "Entry ##{fe.id}", fe
       = "(Client: #{client}, entered: #{fe.created_at})"

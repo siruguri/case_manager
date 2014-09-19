@@ -11,7 +11,7 @@
   %ul.action_list
     - clients.each do |ct|
       %li
-        = ct.display_name
+        = link_to ct.display_name, ct
         - if user.has_role :volunteer
           (Needs Attention:
           %span{class: ct.has_flag?(:special_attention) ? 'red-font bold-font':'green-font'}

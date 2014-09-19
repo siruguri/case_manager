@@ -46,3 +46,8 @@ This will create a few users -
 1. A volunteer: `vol1@casemanager.com`, password: `volpass123`
 1. A manager, who manages the above volunteer: `mgr1@casemanager.com`, password: `mgrpass123`
 
+# Administrative Interface
+
+You can access the administrative interface via by typing in
+"http://localhost:3000/admin_interface" in the browser. You need to be
+logged in with the administrative user account.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916213604) do
+ActiveRecord::Schema.define(version: 20140919162519) do
 
   create_table "address_entries", force: true do |t|
     t.float    "lat"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20140916213604) do
 
   create_table "form_cross_references", force: true do |t|
     t.integer  "form_entry_id"
-    t.string   "cross_reference_class"
+    t.string   "cross_reference_type"
     t.integer  "cross_reference_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -88,7 +88,14 @@ ActiveRecord::Schema.define(version: 20140916213604) do
   end
 
   create_table "form_structures", force: true do |t|
-    t.string   "form_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "form_name"
+  end
+
+  create_table "form_tracking_ids", force: true do |t|
+    t.string   "tracking_id"
+    t.integer  "client_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
