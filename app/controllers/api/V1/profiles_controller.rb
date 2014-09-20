@@ -1,22 +1,20 @@
-class Api::V1::ProfilesController < ApplicationController
+module Api
+  module V1
+    class ProfilesController < ApiBaseController
+      def process_cmd
+        u = UserAction.new(description: params[:desc])
+        u.user = current_user
+        if u.save
+          # Let's set the description from what's in the db to account for model validations/callbacks.
+          set_response_field(:description, u.description)
+          set_response_field(:created_at,  u.created_at.to_time.to_s.gsub(/ .\d+$/, '') + " #{Time.now.zone}")
+          set_response_success
+        else
+          set_response_failure
+        end
 
-  def process_cmd
-    resp_o = {status: "Unknown error. This shouldn't have happened.", description: '', created_at: ''}
-
-    status = 'fail'
-    u = UserAction.new(description: params[:desc])
-    u.user = current_user
-    if u.save
-      status = 'success'
-
-      # Let's set the description from what's in the db to account for model validations/callbacks.
-      resp_o[:description]= u.description
-      resp_o[:created_at]= u.created_at.to_time.to_s.gsub(/ .\d+$/, '') + " #{Time.now.zone}"
-    end
-
-    resp_o[:status]=status
-    respond_to do |fmt| 
-      fmt.json { render json: resp_o }
+        send_response
+      end
     end
   end
 end
