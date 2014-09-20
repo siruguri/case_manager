@@ -23,7 +23,8 @@ CaseManager::Application.routes.draw do
   constraints(format: /json/) do
     namespace :api, defaults: {format: 'json'} do
       namespace :v1 do
-        get '/clients' => 'clients#search'
+         get '/clients' => 'clients#search'
+        post '/client/:id' => 'clients#update'
         post '/profile/:cmd(.:format)' => 'profiles#process_cmd'
       end
     end

@@ -20,4 +20,7 @@
     Client Dashboard
 
   Flag for Attention:
-  = display_flag @flags[:special_attention]
+  %span.flag.flag_special_attention
+    = display_flag @flags[:special_attention]
+  %button.api-button{'data-link' => "/api/v1/client/#{@client.id}?api_action=toggle_client_flag&flag_name=special_attention", 'data-ref' => 'special_attention'}
+    Change Flag
