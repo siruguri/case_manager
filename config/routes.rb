@@ -8,9 +8,14 @@ CaseManager::Application.routes.draw do
   # I like having this to populate the navbar with, via the database rather than do it in the views.
   resources :navbar_entries
 
+  # Case Management
   resources :form_entries
   resources :clients
 
+  # Open Referral
+  resources :organizations
+  get 'search_organizations' => 'organizations#search'
+  
   # Logins and Profiles
   devise_for :users
   resources :users, path: 'profiles'
@@ -32,7 +37,6 @@ CaseManager::Application.routes.draw do
 
   resque_web_constraint = lambda do |request|
     current_user = request.env['warden'].user
-    puts ">>> Checking user for admin: #{current_user.is_admin?}" unless current_user.nil?
     !(current_user.nil?) && current_user.is_admin?
   end
 

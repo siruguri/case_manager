@@ -1,5 +1,5 @@
 FormStructure.find_or_create_by(id: 1) do |fs|
-  fs.form_number='SEDC0090'
+  fs.form_name='Enrolment'
   fs.save
 end
 

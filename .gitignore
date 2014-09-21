@@ -36,3 +36,5 @@ pickle-email-*.html
 .rvmrc
 
 public/assets/*
+db/sphinx/
+log/

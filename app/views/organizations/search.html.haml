@@ -1,0 +1,13 @@
+%h1
+  Organization Search Results
+
+- @results.each do |res|
+  %b
+    Name: 
+  = res.name
+  %br
+  %b
+    Description:
+  = res.description
+  %hr
+

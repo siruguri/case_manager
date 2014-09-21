@@ -74,15 +74,17 @@ group :development do
   gem 'pry-byebug'
 
   # This needs to be here, else 'rake spec' will output nothing.
-  gem 'rspec-rails'
 end
 
 #testing with rspec
 
-group :test do
+group :test, :development do
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
+  gem 'dotenv-rails'
+end
 
+group :test do
+  gem 'shoulda-matchers'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem "factory_girl_rails"
@@ -90,9 +92,11 @@ group :test do
   gem "email_spec"
 end
 
-gem 'dotenv-rails', groups: [:development, :test]
-
 # Resque for emails
 gem "resque"
 gem 'resque-web', require: 'resque_web'
 gem 'resque-scheduler'
+
+# Sphinx - versions as of 09/14, http://pat.github.io/thinking-sphinx/installing_thinking_sphinx/ts3.html
+gem 'mysql2',          '0.3.12b5', :platform => :ruby
+gem 'thinking-sphinx', '~> 3.1.0'
