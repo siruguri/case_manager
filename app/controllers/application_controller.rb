@@ -37,8 +37,6 @@ class ApplicationController < ActionController::Base
     # 2. This helps Rails4 strong parameter setting
     resource = controller_name.singularize.to_sym
     method = "#{resource}_strong_params"
-    
-    puts ">>> #{params}"
     params[resource] &&= send(method, params[resource]) if respond_to?(method, true)
   end
 

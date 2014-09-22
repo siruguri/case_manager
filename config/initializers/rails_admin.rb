@@ -32,7 +32,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.model 'BooleanQuestion' do
+  config.model 'FreeTextQuestion' do
     object_label_method do
       :question_snippet
     end
@@ -42,9 +42,33 @@ RailsAdmin.config do |config|
       :question_snippet
     end
   end
+  config.model 'FormStructure' do
+    object_label_method do
+      :form_name
+    end
+  end
+  config.model 'FormStructureEntry' do
+    object_label_method do
+      :fse_question_snippet
+    end
+
+    list do
+      sort_by :sort_order
+      field :form_structure
+      field :question
+      field :sort_order
+    end
+  end
 
   def question_snippet
     self.display_value[0..32]
   end
 
+  def form_name
+    self.form_name
+  end
+
+  def fse_question_snippet
+    self.question.display_value[0..32]
+  end
 end

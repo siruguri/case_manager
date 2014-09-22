@@ -10,11 +10,11 @@
   %h1
     Responses
 
-  - @disp_array[:answers].each do |disp|
+  - @form_entry.form_answers.each do |f_a|
     %hr
     %span.form_question
-      = disp[:dv]
+      = f_a.question.display_value
     %span.form_answer
-      = disp[:ans]
+      = f_a.question.answer(f_a.answer_value)
 
   

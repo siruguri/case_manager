@@ -3,27 +3,35 @@
     = image_tag 'find_logo.png', alt: "Family Information Navigation Desk"
     %h2 
       Form:
-      = @view_info[:form_structure].form_name
+      = @form_structure.form_name
 
-  = form_tag "/form_entries" do
-    = hidden_field_tag :form_structure_id, @view_info[:form_structure].id
-    = hidden_field_tag :client_id, '-1'
-    = fields_for(@client) do |c|
+  = form_for @form_entry do |fe|
+    = hidden_field_tag 'form_entry[form_structure_id]', 'form_structure.id'
+    = fe.fields_for(:clients) do |c|
       = c.label :last_name, "Last Name:"
       = c.text_field :last_name, class: 'autocomplete'
       = c.label :first_name, "First Name:"
       = c.text_field :first_name, class: 'autocomplete'
       = c.label :mr_number, "MR #:"
       = c.text_field :mr_number
-      = c.fields_for :form_tracking_ids do |ft|
-        = ft.label :tracking_id, "Enrolment ID:"
-        = ft.text_field :tracking_id, class: 'enrolment-id', value: "EED#{ENV['COMPUTER_NAME']}0000", readonly: true
+      = c.fields_for :form_tracking_ids do |ft_id|
+        = ft_id.label :tracking_id, "Enrolment ID:"
+        = ft_id.text_field :tracking_id, class: 'enrolment-id', value: "EED#{ENV['COMPUTER_NAME']}0000", readonly: true
 
     %hr
 
-    - @form_questions.each do |fq|
-      = label_tag "multiple_choice_entries[#{fq[:id]}]", fq[:display_value]
-      = select_tag "multiple_choice_entries[#{fq[:id]}]", options_for_select(fq[:choices_array], multiple: (fq[:type]=='multiple_choice'))
+    - @form_entry.form_answers.each_with_index do |f_a, idx|
+      - prefix = "form_entry[form_answers_attributes][#{idx}]"
+
+      = hidden_field_tag "#{prefix}[question_id]", f_a.question.id
+      = hidden_field_tag "#{prefix}[question_type]", f_a.question.class
+      = label_tag "#{prefix}[answer_value]", f_a.question.display_value
+      - if f_a.question.class == MultipleChoiceQuestion
+        = select_tag "#{prefix}[answer_value]", options_for_select(f_a.question.choices_with_index, multiple: f_a.question.allows_multiple)
+      - elsif f_a.question.class == FreeTextQuestion
+        = text_area_tag "#{prefix}[answer_value]"
+      - else
+        = f_a.question.class
       %hr
       
     = submit_tag "Done"
