@@ -20,8 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  site_title: "FIND Case Manager"
-  site_brand: "FIND Case Manager"
+  site_title: "Case Manager App"
+  site_brand: "Case Manager App"
   successful_resource_creation: "Resource successfully created"
   successful_resource_update: "Resource successfully updated"
   errors_found: "Errors found"

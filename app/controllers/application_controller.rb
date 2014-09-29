@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
     I18n.locale = set_locale
     insert_default_param_filter
     create_navbar_data
+    load_current_theme
   end
 
   rescue_from ActionController::RoutingError do |exception|
@@ -59,5 +60,14 @@ class ApplicationController < ActionController::Base
   # Use URL options to set locale. I prefer it that way.
   def default_url_options(options={})
     { locale: I18n.locale }
+  end
+
+  # Load the theme - hopes at least one theme is active
+  def load_current_theme
+    if current_user
+      @current_theme = current_user.employer.theme_components.where(is_active: true).first
+    else
+      @current_theme=nil
+    end
   end
 end
