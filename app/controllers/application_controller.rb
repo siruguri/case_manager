@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
       {title: entry.title, url: entry.url }
     end
 
-    @dropdown_forms=FormStructure.all
+    @dropdown_forms=FormStructure.joins(:author).where('users.employer_id = ?', current_user.employer_id) if current_user
   end
 
   def go_back_or_root(message)

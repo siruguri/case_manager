@@ -1,5 +1,6 @@
 class FormStructure < ActiveRecord::Base
   has_many :form_structure_entries
+  belongs_to :author, class_name: 'User'
 
   has_many :multiple_choice_questions, through: :form_structure_entries, source: :question, source_type: 'MultipleChoiceQuestion'
   has_many :free_text_questions, through: :form_structure_entries, source: :question, source_type: 'FreeTextQuestion'

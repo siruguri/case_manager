@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929184244) do
+ActiveRecord::Schema.define(version: 20140930205541) do
 
   create_table "address_entries", force: true do |t|
     t.float    "lat"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140929184244) do
     t.string  "flag_value"
     t.integer "yes_no_flag_id"
     t.integer "client_id"
+    t.integer "flag_config_id"
   end
 
   create_table "clients", force: true do |t|
@@ -62,6 +63,11 @@ ActiveRecord::Schema.define(version: 20140929184244) do
     t.integer  "client_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "flag_configs", force: true do |t|
+    t.string "display_value"
+    t.string "key"
   end
 
   create_table "form_answers", force: true do |t|
