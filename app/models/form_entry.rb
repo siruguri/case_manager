@@ -1,4 +1,6 @@
 class FormEntry < ActiveRecord::Base
+  attr_accessor :answer_list
+
   belongs_to :form_author, class_name: 'User'
   belongs_to :form_structure
 
@@ -17,4 +19,18 @@ class FormEntry < ActiveRecord::Base
        self.clients[0].display_name
      end
   end
+
+  def answer(key)
+    # cache the answers first the first time we call this
+    if @answer_list.nil?
+      keys=self.form_answers.map(&:question)
+      ans_idxs=self.form_answers.map(&:answer_value)
+      @answer_list = keys.zip(ans_idxs).map do |q, a|
+        [q.key.to_sym, q.choices[a.to_i]]
+      end
+    end
+
+    @answer_list.select { |x| x[0]==key}.first[1]
+  end
+
 end

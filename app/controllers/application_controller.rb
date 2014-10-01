@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
     I18n.locale = set_locale
     insert_default_param_filter
     create_navbar_data
+    load_current_organization
     load_current_theme
   end
 
@@ -63,9 +64,16 @@ class ApplicationController < ActionController::Base
   end
 
   # Load the theme - hopes at least one theme is active
+  def load_current_organization
+    if current_user
+      @current_organization = current_user.employer
+    else
+      @current_organization=nil
+    end
+  end
   def load_current_theme
     if current_user
-      @current_theme = current_user.employer.theme_components.where(is_active: true).first
+      @current_theme = @current_organization.theme_components.where(is_active: true).first
     else
       @current_theme=nil
     end

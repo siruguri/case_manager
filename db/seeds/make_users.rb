@@ -9,7 +9,7 @@ User.find_or_create_by(email: 'admin@casemanager.com') do |u|
   u.admin=true
 end
 
-org_keys = ['cho_encore', 'youthalive']
+org_keys = ['cho_encore', 'youth_alive']
 org_keys.each do |o_key|
   m = User.where(email: "mgr.#{o_key}@casemanager.com").first_or_initialize
   m.password='mgrpass123'
@@ -23,7 +23,7 @@ org_keys.each do |o_key|
     v.password='volpass123'
     v.role = Role.find_by_name('volunteer')
     v.admin=false
-    v.full_name="Volunteer (#{o_key}) #{vol_num})"
+    v.full_name="Volunteer (#{o_key.camelcase.gsub(/_/, ' ')}) ##{vol_num}"
     v.contact_email='siruguri@gmail.com'
     v.manager=m
     v.save

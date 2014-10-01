@@ -9,7 +9,8 @@ themes.each do |theme|
 
   org = Organization.all.select { |x| re.match x.name }.first
   t = ThemeComponent.find_or_initialize_by organization_id: org.id
-  t.theme_config=theme[:theme_config]
+  t.config_logo_url=theme[:theme_config][:logo]
+
   t.is_active=theme[:is_active]
 
   t.save

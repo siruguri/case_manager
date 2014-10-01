@@ -1,5 +1,6 @@
 class ClientFlag < ActiveRecord::Base
   belongs_to :yes_no_flag
+  belongs_to :flag_config
   belongs_to :client
 
   def toggle_value

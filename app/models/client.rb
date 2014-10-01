@@ -26,6 +26,25 @@ class Client < ActiveRecord::Base
   end
 
   def has_flag?(flag_name)
-    return (false or (client_flags.select { |x| x.yes_no_flag.key.to_sym==flag_name and x.is_true? }).count > 0)
+    return (false or (client_flags.select { |x| x.yes_no_flag && x.yes_no_flag.key.to_sym==flag_name and x.is_true? }).count > 0)
   end
+  
+  def add_flag(flag_key, flag_value=nil)
+    # Let's instantly create a flag that's added to the client.
+    flg = FlagConfig.find_or_initialize_by(key: flag_key) do |f|
+      f.display_value = "#{flag_key}"
+      f.save
+    end
+
+    flgs=self.client_flags.where(flag_config: flg)
+    
+    # Create a new flag for this client if there isn't one already
+    if flgs.empty? or (flag_value && flgs.where(flag_value: flag_value).empty?)
+      cf=self.client_flags.build
+      cf.flag_value=flag_value
+      cf.flag_config=flg
+      cf.save
+    end
+  end
+      
 end

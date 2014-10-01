@@ -26,14 +26,15 @@
               - @navbar_entries[2..-1].each do |entry|
                 %li
                   = link_to t(entry[:title]), entry[:url]
-        %li.dropdown
-          %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown"} 
-            New Form
-            // Add a glyphicon for a down arrow here.
-          %ul.dropdown-menu
-            - @dropdown_forms.each do |form|
-              %li
-                = link_to form.form_name, new_form_entry_path(name: form.form_name)
+        - if @dropdown_forms
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown"} 
+              New Form
+              // Add a glyphicon for a down arrow here.
+            %ul.dropdown-menu
+              - @dropdown_forms.each do |form|
+                %li
+                  = link_to form.form_name, new_form_entry_path(name: form.form_name)
 
       %ul.nav.navbar-nav.navbar-right
         - if current_user

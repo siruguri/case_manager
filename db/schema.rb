@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930205541) do
+ActiveRecord::Schema.define(version: 20140930210738) do
 
   create_table "address_entries", force: true do |t|
     t.float    "lat"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 20140930205541) do
     t.text     "urls"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "org_key"
   end
 
   create_table "parent_child_relationships", force: true do |t|

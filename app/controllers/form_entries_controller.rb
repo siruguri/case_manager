@@ -1,4 +1,5 @@
 class FormEntriesController < ApplicationController
+  include CustomProcessFormEntry
   load_and_authorize_resource
 
   def new
@@ -41,6 +42,9 @@ class FormEntriesController < ApplicationController
       @form_entry.form_author = current_user
       @form_entry.save
 
+      @form_entry.clients.each do |ct|
+        custom_add_client_flags ct, @form_entry
+      end
 
       flash[:notice] = "#{t(:successful_form_entry)} for patient ID #{@form_entry.clients[0].id}"
       redirect_to '/profile'

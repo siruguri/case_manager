@@ -49,7 +49,7 @@ end
 
 fs=FormStructure.find_or_create_by(id: 2)
 fs.form_name='START Survey'
-fs.author = User.find_by_email('mgr.youthalive@casemanager.com')
+fs.author = User.find_by_email('mgr.youth_alive@casemanager.com')
 fs.save
 
 four_parts=%w(Never Rarely Sometimes Often)
