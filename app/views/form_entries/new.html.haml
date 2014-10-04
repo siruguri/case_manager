@@ -6,8 +6,13 @@
       = @form_structure.form_name
 
   = form_for @form_entry do |fe|
-    = hidden_field_tag 'form_entry[form_structure_id]', 'form_structure.id'
+    = fe.hidden_field :form_structure_id
+    = fe.fields_for(:form_cross_references) do |xref|
+      = xref.hidden_field :form_entry_id
+      = xref.hidden_field :cross_reference_type
+      = xref.hidden_field :cross_reference_id
     = fe.fields_for(:clients) do |c|
+      = c.hidden_field :id
       = c.label :last_name, "Last Name:"
       = c.text_field :last_name, class: 'autocomplete'
       = c.label :first_name, "First Name:"

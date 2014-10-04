@@ -17,6 +17,7 @@ class FormEntriesController < ApplicationController
       @form_entry.form_answers.last.question = qn
     end
 
+    @form_entry.form_cross_references.build
     @form_entry.clients.build
     client = @form_entry.clients.last
     client.form_tracking_ids.build
@@ -24,6 +25,13 @@ class FormEntriesController < ApplicationController
 
   def create
     form_entry_p = params.require(:form_entry)
+
+    if form_entry_p[:form_cross_references_attributes]["0"][:cross_reference_type]=='Client'
+      form_entry_p.delete :clients_attributes
+    else
+      form_entry_p.delete :form_cross_references_attributes
+    end
+
     @form_entry=FormEntry.new(form_entry_p)
     if @form_entry.save
       # Set a case contact for this client
@@ -31,12 +39,15 @@ class FormEntriesController < ApplicationController
         ct.case_contact = current_user
         ct.save
 
-        recd_ft_id = form_entry_p[:clients_attributes]["0"][:form_tracking_ids_attributes]["0"]["tracking_id"]
-        # Correct the form tracking id, using the client's ID
-        ft = ct.form_tracking_ids.\
-        select { |x| puts ">>> checking #{x.tracking_id} with #{recd_ft_id}"; x.tracking_id.match recd_ft_id}.first
-        ft.tracking_id = ft.tracking_id.gsub /\d+$/, sprintf("%04d", ct.id)
-        ft.save
+        # If this is a new client, set the form tracking ID appropriately.
+        if form_entry_p[:clients_attributes]
+          recd_ft_id = form_entry_p[:clients_attributes]["0"][:form_tracking_ids_attributes]["0"]["tracking_id"]
+          # Correct the form tracking id, using the client's ID
+          ft = ct.form_tracking_ids.\
+          select { |x| x.tracking_id.match recd_ft_id}.first
+          ft.tracking_id = ft.tracking_id.gsub /\d+$/, sprintf("%04d", ct.id)
+          ft.save
+        end
       end
 
       @form_entry.form_author = current_user
@@ -61,8 +72,9 @@ class FormEntriesController < ApplicationController
   private
   def form_entry_strong_params(resource_p)
     resource_p.permit(:form_structure_id, 
-                      clients_attributes: [:first_name, :last_name, :mr_number, form_tracking_ids_attributes: [:tracking_id]], 
+                      clients_attributes: [:id, :first_name, :last_name, :mr_number, form_tracking_ids_attributes: [:tracking_id]], 
                       form_answers_attributes: [:answer_value, :question_id, :question_type],
+                      form_cross_references_attributes: [:form_entry_id, :cross_reference_id, :cross_reference_type],
                       )
   end
 end
