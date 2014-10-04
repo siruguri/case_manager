@@ -6,22 +6,23 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     if user.id
-
       if user.admin?
         can :manage, :all
-      end
-
-      # Users can see their own profiles
-      can :manage, User, {id: user.id}
-      
-      if user.has_role(:manager)
-        can :manage, Client, {case_contact_id: user.volunteers.map { |x| x.id }}
-      end
-      if user.has_role(:volunteer)
-        can :create, FormEntry
-        can :manage, Client, {case_contact_id: user.id}
-        can [:read, :update], FormEntry do |fe|
-          fe.form_author.id == user.id
+      else
+        # Users can see their own profiles
+        can :manage, User, {id: user.id}
+        
+        if user.has_role(:manager)
+          can :manage, Client, {case_contact_id: user.volunteers.map { |x| x.id }}
+          can :access, :rails_admin   # grant access to rails_admin
+          can :dashboard  
+        end
+        if user.has_role(:volunteer)
+          can :create, FormEntry
+          can :manage, Client, {case_contact_id: user.id}
+          can [:read, :update], FormEntry do |fe|
+            fe.form_author.id == user.id
+          end
         end
       end
     end

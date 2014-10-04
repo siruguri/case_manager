@@ -23,7 +23,8 @@ CaseManager::Application.routes.draw do
   # Routes for my own profile
   get '/profile' => 'profiles#show'
 
-  root to: 'welcome#home' # Change this to something else in your app.
+  get '/' => 'welcome#home'
+  root to: 'welcome#home'
 
   constraints(format: /json/) do
     namespace :api, defaults: {format: 'json'} do

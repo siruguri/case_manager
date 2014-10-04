@@ -10,8 +10,7 @@ class ApplicationController < ActionController::Base
     I18n.locale = set_locale
     insert_default_param_filter
     create_navbar_data
-    load_current_organization
-    load_current_theme
+    load_current_configs # Theme and organization
   end
 
   rescue_from ActionController::RoutingError do |exception|
@@ -54,7 +53,7 @@ class ApplicationController < ActionController::Base
     if request.env.key? "HTTP_REFERER"
       redirect_to :back, :alert => message
     else
-      redirect_to root_url, :alert => message
+      redirect_to '/', :alert => message
     end
   end 
 
@@ -64,18 +63,14 @@ class ApplicationController < ActionController::Base
   end
 
   # Load the theme - hopes at least one theme is active
-  def load_current_organization
-    if current_user
+  def load_current_configs
+    if current_user && current_user.employer
       @current_organization = current_user.employer
-    else
-      @current_organization=nil
-    end
-  end
-  def load_current_theme
-    if current_user
       @current_theme = @current_organization.theme_components.where(is_active: true).first
     else
+      @current_organization=nil
       @current_theme=nil
     end
   end
+
 end

@@ -11,7 +11,7 @@ end
 
 org_keys = ['cho_encore', 'youth_alive']
 org_keys.each do |o_key|
-  m = User.where(email: "mgr.#{o_key}@casemanager.com").first_or_initialize
+  m = User.where(email: "#{o_key}.mgr@casemanager.com").first_or_initialize
   m.password='mgrpass123'
   m.role = Role.find_by_name('manager')
   m.admin=false
