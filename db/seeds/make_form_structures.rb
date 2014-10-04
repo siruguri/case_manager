@@ -1,8 +1,7 @@
-FormStructure.find_or_create_by(id: 1) do |fs|
-  fs.form_name='Enrolment'
-  fs.author = User.find_by_email('mgr.cho_encore@casemanager.com')
-  fs.save
-end
+fs=FormStructure.find_or_create_by(id: 1)
+fs.form_name='Enrolment'
+fs.author = User.find_by_email('cho_encore.mgr@casemanager.com')
+fs.save
 
 free_text_qns =\
 [{key: :no_study_reason, dv: 'If you are not participating in the study, please describe why.'},
@@ -49,7 +48,7 @@ end
 
 fs=FormStructure.find_or_create_by(id: 2)
 fs.form_name='START Survey'
-fs.author = User.find_by_email('mgr.youth_alive@casemanager.com')
+fs.author = User.find_by_email('youth_alive.mgr@casemanager.com')
 fs.save
 
 four_parts=%w(Never Rarely Sometimes Often)

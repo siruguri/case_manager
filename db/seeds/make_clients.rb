@@ -20,7 +20,7 @@ cts.each do |ct|
       cf.yes_no_flag=YesNoFlag.find_by_key(key)
       cf.save
     end
-  endx
+  end
 
   if (v=User.find_by_email "#{ct[:case_contact_key]}@casemanager.com")
     x.case_contact = v
