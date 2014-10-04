@@ -43,7 +43,7 @@ module Api
             ct.client_flags << flag
           end
 
-          set_response_field('flag_value', flag.flag_value)
+          set_response_field('flag_value', flag.flag_value.capitalize)
           set_response_success
         end
 

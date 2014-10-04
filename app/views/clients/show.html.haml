@@ -24,3 +24,11 @@
     = display_flag @flags[:special_attention]
   %button.api-button{'data-link' => "/api/v1/client/#{@client.id}?api_action=toggle_client_flag&flag_name=special_attention", 'data-ref' => 'special_attention'}
     Change Flag
+
+  .section-title
+    Other Flags
+    %ul
+    - @client.client_flags.each do |flag|
+      - if flag.flag_config
+        %li
+          = "#{flag.flag_config.display_value}: #{flag.flag_value}"
