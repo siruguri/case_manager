@@ -4,7 +4,7 @@ module AbstractQuestion
       return val
     elsif self.class == MultipleChoiceQuestion
       if self.is_boolean?
-        choice_array=['Yes', 'No']
+        choice_array=MultipleChoiceQuestion.boolean_choice_array
       else 
         choice_array=self.choices
       end

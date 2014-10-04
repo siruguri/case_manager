@@ -1,3 +1,6 @@
+class IncorrectSeedData < Exception
+end
+
 fs=FormStructure.find_or_create_by(id: 1)
 fs.form_name='Enrolment'
 fs.author = User.find_by_email('cho_encore.mgr@casemanager.com')
@@ -29,7 +32,13 @@ mc_qns.each do |qn_h|
   qn = MultipleChoiceQuestion.find_or_initialize_by(key: qn_h[:key])
   qn.display_value = qn_h[:dv]
   qn.is_boolean = (qn_h[:is_boolean] == true)
-  qn.choices = qn_h[:choices]
+  if qn_h[:choices]
+    qn.choices = qn_h[:choices]
+  elsif qn.is_boolean
+    qn.choices = MultipleChoiceQuestion.boolean_choice_array
+  else
+    raise IncorrectSeedData, "Seed (choices) data for qn #{qn_h} is incomplete"
+  end
   qn.save
 end
 
