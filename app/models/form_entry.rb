@@ -21,16 +21,15 @@ class FormEntry < ActiveRecord::Base
      end
   end
 
-  def answer(key)
-    # cache the answers first the first time we call this
-    if @answer_list.nil?
-      keys=self.form_answers.map(&:question)
-      ans_idxs=self.form_answers.map(&:answer_value)
-      @answer_list = keys.zip(ans_idxs).map do |q, a|
-        [q.key.to_sym, q.choices[a.to_i]]
-      end
+  def answers
+    build_answer_list_cache
+    @answer_list.each do |ans|
+      "#{ans[0]}: #{ans[1]}"
     end
-
+  end
+  def answer(key)
+    build_answer_list_cache
+    # cache the answers first the first time we call this
     @answer_list.select { |x| x[0]==key}.first[1]
   end
 
@@ -38,4 +37,20 @@ class FormEntry < ActiveRecord::Base
     # For new form's hidden field
     self.form_structure.id
   end
+
+  private
+  def build_answer_list_cache
+    if @answer_list.nil?
+      keys=self.form_answers.map(&:question)
+      ans_idxs=self.form_answers.map(&:answer_value)
+      @answer_list = keys.zip(ans_idxs).map do |q, a|
+        [q.key.to_sym, answer_deref(q, a)]
+      end
+    end
+  end
+
+  def answer_deref(q, a)
+    q.class==FreeTextQuestion ? a : q.choices[a.to_i]
+  end
 end
+
