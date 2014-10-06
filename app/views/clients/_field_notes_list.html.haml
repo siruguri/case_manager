@@ -1,0 +1,13 @@
+%ul.note-list-tag
+  - client.field_notes.each do |f_n|
+    %li
+      \#
+      = link_to(f_n.id, f_n) + ": "
+      %span.bold-font<>
+        = "#{f_n.entry}"
+      , [
+      %span.italicized-font<>
+        = f_n.author.full_name
+      = ", #{f_n.created_at}]"
+
+%ul.dynamic-notes

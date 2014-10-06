@@ -6,8 +6,6 @@ class ClientsController < ApplicationController
   end
 
   def show
-    @client = Client.find params[:id]
-
     if @client.client_flags
       @flags=(@client.client_flags.inject({}) do |hsh, flg|
                 if flg.yes_no_flag

@@ -37,5 +37,4 @@ class User < ActiveRecord::Base
 
     return false
   end
-
 end

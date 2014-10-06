@@ -11,6 +11,7 @@ CaseManager::Application.routes.draw do
   # Case Management
   resources :form_entries
   resources :clients
+  resources :field_notes
 
   # Open Referral
   resources :organizations

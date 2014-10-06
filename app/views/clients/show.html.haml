@@ -2,8 +2,8 @@
   %h3
     Client:
     = "#{@client.first_name} #{@client.last_name}"
-  MR Number 
-  = @client.mr_number
+  MR Number: 
+  = @client.mr_number ? @client.mr_number : "No MR number recorded!"
 
   %hr
   Case Contact:
@@ -22,7 +22,7 @@
   Flag for Attention:
   %span.flag.flag_special_attention
     = display_flag @flags[:special_attention]
-  %button.api-button{'data-link' => "/api/v1/client/#{@client.id}?api_action=toggle_client_flag&flag_name=special_attention", 'data-ref' => 'special_attention'}
+  %button.toggle-button{'data-link' => "/api/v1/client/#{@client.id}?api_action=toggle_client_flag&flag_name=special_attention", 'data-ref' => 'special_attention'}
     Change Flag
 
   .section-title
@@ -32,3 +32,14 @@
       - if flag.flag_config
         %li
           = "#{flag.flag_config.display_value}: #{flag.flag_value}"
+  .section-title
+    Client Notes
+
+  = render partial: 'field_notes_list', locals: {client: @client}
+
+  .section-title
+    Add A New Note
+    
+  = text_area_tag :note_content, nil, cols: 100
+  %button.submit-data-button{'data-link' => "/api/v1/client/#{@client.id}?api_action=add_note", 'input-ref' => 'note_content', 'append-ref' => 'dynamic-notes'}
+    Add Note
