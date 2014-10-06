@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     load_current_configs # Theme and organization
   end
 
-  rescue_from ActionController::RoutingError do |exception|
+  rescue_from ActionController::RoutingError, ActiveRecord::RecordNotFound do |exception|
     error_message = I18n.t(:message_404)
     go_back_or_root(error_message)
   end
