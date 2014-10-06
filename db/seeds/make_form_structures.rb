@@ -14,7 +14,7 @@ free_text_qns =\
 ] 
 
 mc_qns = 
-[{key: :language_choice, dv: 'Which language would you like to answer questions in?', choices: %w(English Spanish)},
+[{key: :language_choice, dv: 'Which language would you like to answer questions in?', choices: %w(English Spanish Other)},
  {key: :study_participate, dv: 'Do you want to participate in the study?', is_boolean: true},
  {key: :primary_language, dv: 'What is your primary language?', choices: %w(English Spanish)},
  {key: :primary_caregiver, dv: 'Are you the primary caregiver?', is_boolean: true},

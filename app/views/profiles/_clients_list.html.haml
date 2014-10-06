@@ -8,13 +8,17 @@
     Case Contact:
     = case_contact_name
 
-  %ul.clients_list
-    - clients.each do |ct|
-      %li
-        = link_to ct.display_name, ct
-        - if user.has_role :volunteer
-          (Needs Attention:
-          %span{class: ct.has_flag?(:special_attention) ? 'red-font bold-font':'green-font'}
-            = ct.has_flag?(:special_attention) ? 'Yes':'No'
-          )
+  - if clients.empty?
+    .green-font
+      None
+  - else
+    %ul.clients_list
+      - clients.each do |ct|
+        %li
+          = link_to ct.display_name, ct
+          - if user.has_role :volunteer
+            (Needs Attention:
+            %span{class: ct.has_flag?(:special_attention) ? 'red-font bold-font':'green-font'}
+              = ct.has_flag?(:special_attention) ? 'Yes':'No'
+            )
 

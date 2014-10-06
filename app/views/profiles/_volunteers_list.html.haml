@@ -3,6 +3,6 @@
     %li
       = vol.full_name
       (status:
-      %span{class: vol.is_current? ? 'current':'not_current'}
+      %span{class: vol.is_current? ? 'current':'not_current'}>
         = vol.is_current? ? 'Current':'Not Current'
-      )
+      = ", last action at: #{vol.last_action})"

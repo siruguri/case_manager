@@ -11,11 +11,13 @@ end
 
 org_keys = ['cho_encore', 'youth_alive']
 org_keys.each do |o_key|
+  org_pretty_name = o_key.camelcase
+
   m = User.where(email: "#{o_key}.mgr@casemanager.com").first_or_initialize
   m.password='mgrpass123'
   m.role = Role.find_by_name('manager')
   m.admin=false
-  m.full_name='Manager for #{o_key}'
+  m.full_name="Manager for #{org_pretty_name}"
   m.save
 
   (1..3).each do |vol_num|
@@ -23,7 +25,7 @@ org_keys.each do |o_key|
     v.password='volpass123'
     v.role = Role.find_by_name('volunteer')
     v.admin=false
-    v.full_name="Volunteer (#{o_key.camelcase.gsub(/_/, ' ')}) ##{vol_num}"
+    v.full_name="Volunteer (#{org_pretty_name}) ##{vol_num}"
     v.contact_email='siruguri@gmail.com'
     v.manager=m
     v.save

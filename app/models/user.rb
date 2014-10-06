@@ -30,11 +30,16 @@ class User < ActiveRecord::Base
   def is_current?
     # If actions are more recent than some number of days
     self.user_actions.each do |act|
-      if act.created_at > Time.now - 15.days # TODO Need to add type of action here, and parametrize the time period
+      if act.created_at > Time.now - 1.day # TODO Need to add type of action here, and parametrize the time period
         return true
       end
     end
 
     return false
+  end
+
+  def last_action
+    acts=self.user_actions
+    acts.empty? ? "No action recorded!" : acts.last.created_at
   end
 end
