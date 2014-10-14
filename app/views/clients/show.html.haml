@@ -1,45 +1,55 @@
 .clients
+
   %h3
     Client:
     = "#{@client.first_name} #{@client.last_name}"
   MR Number: 
   = @client.mr_number ? @client.mr_number : "No MR number recorded!"
 
-  %hr
-  Case Contact:
-  = @client.case_contact.full_name
-  %hr
+  .tabs
+    .tab-links
+      .tab-header.active
+        %a{'tabref' => "#tab1"}
+          Dashboard
+      .tab-header
+        %a{'tabref' => "#tab2"}
+          Forms
+      .tab-header
+        %a{'tabref' => "#tab3"}
+          Profile
+      .tab-header
+        %a{'tabref' => "#tab4"}
+          Field Notes
 
-  .section-title
-    Forms entered for this client
+  .tab-content
+    #tab1.tab.active
 
-  = render partial: 'form_entries/entry_list', locals: {entries: @client_forms}
+      Flag for Attention:
+      %input.toggle-button{'data-size' => 'large', 'name' => 'attention-flag', 'type' => 'checkbox', 'checked' => @flags[:special_attention], 'data-off-color' => 'green', 'data-on-color' => 'red', 'data-off-text' => 'Clear', 'data-on-text' => 'Flagged', 'data-link' => "/api/v1/client/#{@client.id}?api_action=toggle_client_flag&flag_name=special_attention", 'data-ref' => 'special_attention'}
 
-  %hr
-  .section-title
-    Client Dashboard
+    #tab2.tab
+      // This is the current status
+      .section-title
+        Forms entered for this client
 
-  Flag for Attention:
-  %span.flag.flag_special_attention
-    = display_flag @flags[:special_attention]
-  %button.toggle-button{'data-link' => "/api/v1/client/#{@client.id}?api_action=toggle_client_flag&flag_name=special_attention", 'data-ref' => 'special_attention'}
-    Change Flag
+      = render partial: 'form_entries/entry_list', locals: {entries: @client_forms}
 
-  .section-title
-    Other Flags
-  %ul
-    - @client.client_flags.each do |flag|
-      - if flag.flag_config
-        %li
-          = "#{flag.flag_config.display_value}: #{flag.flag_value}"
-  .section-title
-    Client Notes
+      .section-title
+        Other Flags
+      %ul
+        - @client.client_flags.each do |flag|
+          - if flag.flag_config
+            %li
+              = "#{flag.flag_config.display_value}: #{flag.flag_value}"
+          
+    #tab3.tab
+      %p
+        Case Contact:
+        = @client.case_contact.full_name
 
-  = render partial: 'field_notes_list', locals: {client: @client}
+    #tab4.tab
+      = render partial: 'field_notes_list', locals: {client: @client}
 
-  .section-title
-    Add A New Note
-    
-  = text_area_tag :note_content, nil, cols: 100
-  %button.submit-data-button{'data-link' => "/api/v1/client/#{@client.id}?api_action=add_note", 'input-ref' => 'note_content', 'append-ref' => 'dynamic-notes'}
-    Add Note
+      = text_area_tag :note_content, nil, cols: 100
+      %button.submit-data-button{'data-link' => "/api/v1/client/#{@client.id}?api_action=add_note", 'input-ref' => 'note_content', 'append-ref' => 'dynamic-notes'}
+        Add Note
