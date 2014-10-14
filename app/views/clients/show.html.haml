@@ -7,7 +7,7 @@
   = @client.mr_number ? @client.mr_number : "No MR number recorded!"
 
   .tabs
-    .tab-links
+    .tab-links<>
       .tab-header.active
         %a{'tabref' => "#tab1"}
           Dashboard
@@ -27,13 +27,6 @@
       Flag for Attention:
       %input.toggle-button{'data-size' => 'large', 'name' => 'attention-flag', 'type' => 'checkbox', 'checked' => @flags[:special_attention], 'data-off-color' => 'green', 'data-on-color' => 'red', 'data-off-text' => 'Clear', 'data-on-text' => 'Flagged', 'data-link' => "/api/v1/client/#{@client.id}?api_action=toggle_client_flag&flag_name=special_attention", 'data-ref' => 'special_attention'}
 
-    #tab2.tab
-      // This is the current status
-      .section-title
-        Forms entered for this client
-
-      = render partial: 'form_entries/entry_list', locals: {entries: @client_forms}
-
       .section-title
         Other Flags
       %ul
@@ -42,6 +35,13 @@
             %li
               = "#{flag.flag_config.display_value}: #{flag.flag_value}"
           
+    #tab2.tab
+      // This is the current status
+      .section-title
+        Forms entered for this client
+
+      = render partial: 'form_entries/entry_list', locals: {entries: @client_forms}
+
     #tab3.tab
       %p
         Case Contact:

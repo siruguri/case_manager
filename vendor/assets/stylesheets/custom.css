@@ -21,13 +21,3 @@ span.flashmesgs {
   border: solid 1px #C66;
 }
 
-.bootstrap-switch-red {
-	background: red;
-}
-.bootstrap-switch-green {
-	background: #7bda7b;
-}
-
-.bootstrap-switch-label {
-	padding: 9px 25px;
-}
