@@ -14,6 +14,7 @@ class Ability
         
         if user.has_role(:manager)
           can :manage, Client, {case_contact_id: user.volunteers.map { |x| x.id }}
+          can :manage, User, {manager: user}
           can :access, :rails_admin   # grant access to rails_admin
           can :dashboard  
         end
