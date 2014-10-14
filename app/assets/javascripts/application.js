@@ -16,4 +16,5 @@
 //= require bootstrap.min
 //= require turbolinks
 //= require underscore
+//= require bootstrap-switch.min
 //= require_tree .

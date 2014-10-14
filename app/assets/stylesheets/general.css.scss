@@ -1,3 +1,8 @@
+.main.container {
+    background: lightblue;
+    min-height: 450px;
+}
+
 .bold-font {
     font-weight: bold;
 }
@@ -15,5 +20,6 @@
 }
 
 .section-title {
+    font-size: 1.1em;
     font-weight: bold;
 }

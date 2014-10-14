@@ -12,5 +12,7 @@
  *= require jquery-ui
  *= require bootstrap
  *= require bootstrap_and_overrides
+ *= require bootstrap-switch.min
+ *= require custom
  *= require_tree
  */
