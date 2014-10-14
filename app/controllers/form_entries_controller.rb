@@ -26,6 +26,8 @@ class FormEntriesController < ApplicationController
   def create
     form_entry_p = params.require(:form_entry)
 
+    # This is set by autocomplete JS in the view - this should be changed to check if the client information 
+    # entered for a given client ID is valid.
     if form_entry_p[:form_cross_references_attributes]["0"][:cross_reference_type]=='Client'
       form_entry_p.delete :clients_attributes
     else

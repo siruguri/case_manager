@@ -45,7 +45,7 @@ module Api
       end
 
       def toggle_client_flag(ct, params)
-        if(flag = ct.client_flags.select { |x| x.yes_no_flag.key == params[:flag_name]}.first)
+        if(flag = ct.client_flags.select { |x| x.yes_no_flag and x.yes_no_flag.key == params[:flag_name]}.first)
           flag.toggle_value
           flag.save
         else

@@ -74,7 +74,7 @@ eligibility_order=\
 [ :language_choice, :study_participate, :no_study_reason, :primary_language, :no_primary_language, :primary_caregiver, 
   :over_18, :already_participating, :resident_of_alameda, :no_alameda_resident, :foster_care_child, :general_comments]
 
-initialize_form_structure 'Enrolment', eligibility_order
+initialize_form_structure 'Eligibility', eligibility_order
 
 # YA START Survey
 four_parts=%w(Never Rarely Sometimes Often)
