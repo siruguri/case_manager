@@ -2,7 +2,6 @@
     /*----- Tabs -----*/
     .tabs {
         width:100%;
-        display:inline-block;
     }
     .tabs .tab-links {
         margin: 0px;
@@ -11,6 +10,12 @@
     /*----- Tab Links -----*/
 
     /* Clearfix */
+    .tab-links:after {
+        display:block;
+        clear:both;
+        content:'';
+    }
+
     .tab-links .tab-header {
         margin:0px 5px;
         float:left;
@@ -46,5 +51,16 @@
     }
     .tab.active {
         display:block;
+    }
+
+    .bootstrap-switch-handle-on {
+    background: red;
+    }
+    .bootstrap-switch-handle-off {
+        background: #7bda7b;
+    }
+
+    .bootstrap-switch-label {
+        padding: 9px 25px;
     }
 }
