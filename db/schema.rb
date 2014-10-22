@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141004005019) do
+ActiveRecord::Schema.define(version: 20141022170208) do
 
   create_table "address_entries", force: true do |t|
     t.float    "lat"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20141004005019) do
     t.integer  "case_contact_id"
     t.integer  "child_id"
     t.integer  "parent_id"
+    t.integer  "priority"
   end
 
   create_table "contact_entries", force: true do |t|

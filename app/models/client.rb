@@ -28,7 +28,8 @@ class Client < ActiveRecord::Base
   def has_flag?(flag_name)
     return (false or (client_flags.select { |x| x.yes_no_flag && x.yes_no_flag.key.to_sym==flag_name and x.is_true? }).count > 0)
   end
-  
+
+  # Create a non-Boolean flag for a client
   def add_flag(flag_key, flag_value=nil)
     # Let's instantly create a flag that's added to the client.
     flg = FlagConfig.find_or_initialize_by(key: flag_key) do |f|

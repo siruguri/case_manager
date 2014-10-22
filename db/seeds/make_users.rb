@@ -9,7 +9,7 @@ User.find_or_create_by(email: 'admin@casemanager.com') do |u|
   u.admin=true
 end
 
-org_keys = ['cho_encore', 'youth_alive']
+org_keys = ['health_clinic', 'cho_encore', 'youth_alive']
 org_keys.each do |o_key|
   org_pretty_name = o_key.camelcase
 
