@@ -11,12 +11,16 @@ class Ability
       else
         # Users can see their own profiles
         can :manage, User, {id: user.id}
+        can :run_api_command, ApiAction do |action|
+          Role.supersedes(user.role, action.role)
+        end
         
         if user.has_role(:manager)
-          can :manage, Client, {case_contact_id: user.volunteers.map { |x| x.id }}
+          can :manage, Client, {case_contact_id: user.volunteers.map { |vol| vol.id }}
           can :manage, User, {manager: user}
           can :access, :rails_admin   # grant access to rails_admin
           can :dashboard  
+
         end
         if user.has_role(:volunteer)
           can :create, FormEntry

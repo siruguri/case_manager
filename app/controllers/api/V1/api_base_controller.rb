@@ -13,8 +13,9 @@ module Api
       def set_response_success
         @api_response[:status]='success'
       end
-      def set_response_failure
+      def send_response_failure
         @api_response[:status]='failure'
+        send_response
       end
 
       def send_response

@@ -25,26 +25,36 @@ module Api
         end
       end
 
-
       def update
+        # Check if the role is allowed to execute this action
         update_action = params[:api_action]
-        ct = Client.find params[:id]
-
-        if ct.nil? or !(action_available? update_action) or cannot?(:update, ct)
-          set_response_failure
-        else
-          eval("#{update_action}(ct, params)")
+        if !(action_rec = ApiAction.find_by_name(update_action)) or cannot?(:run_api_command, action_rec)
+          send_response_failure
+          return
         end
-        send_response
+
+        # if it's a client specific update, check if the user has access to that resource
+        ct=nil
+        if params[:id]
+          ct = Client.find params[:id]
+          if ct.nil? or cannot?(:update, ct)
+            send_response_failure
+          end
+        end
+
+        if eval("#{action_rec.name}(ct, params)")
+          set_response_success
+          send_response
+        else
+          send_response_failure
+        end
       end
 
       private
-      def action_available?(action)
-        return true if action == 'toggle_client_flag' or action == 'add_note'
-        return false
-      end
-
+      # TODO none of these methods check if the underlying DB action fails
       def toggle_client_flag(ct, params)
+        return if ct.nil?
+
         if(flag = ct.client_flags.select { |x| x.yes_no_flag and x.yes_no_flag.key == params[:flag_name]}.first)
           flag.toggle_value
           flag.save
@@ -57,15 +67,27 @@ module Api
         end
 
         set_response_field('flag_value', flag.flag_value.capitalize)
-        set_response_success
+
+        true
       end
+
       def add_note(ct, params)
+        return if ct.nil?
+
         f=FieldNote.new(author: current_user, client: ct, entry: params[:entry])
         f.save
         ct.field_notes << f
 
         set_response_field('entry', f.entry)
-        set_response_success
+
+        true
+      end
+
+      def set_client_priorities(ct, params)
+        send_list = params[:priorities].each_with_index.map { |p, idx| [p.to_i, idx] }
+        Client.change_priorities send_list, -1
+        
+        true
       end
     end
   end
