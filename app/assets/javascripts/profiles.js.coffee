@@ -13,7 +13,7 @@ click_add_button_fn = ->
   		success: update_list})
 
 message = (mesg_str) ->
-  $(".general_messages").html mesg_str
+#  $(".general_messages").html mesg_str
  
 cb = (evt, ui) ->
   $.ajax({
@@ -33,3 +33,22 @@ $(document).on('page:load', click_add_button_fn)
 
 $(document).ready(init_sortable)
 $(document).on('page:load', init_sortable)
+
+page_functions = ->
+  $(".glyphicon-expand").css('cursor', 'pointer')
+  $(".expand-icon").click (evt) ->
+    id=$(evt.target).data('vol-id')
+    state=$(evt.target).data('state')
+    if state == 'closed' or state==null
+      $("#client-list-" + id).show()
+      $(evt.target).data('state', 'open')
+      $(evt.target).removeClass('glyphicon-expand')
+      $(evt.target).addClass('glyphicon-collapse-down')
+    else
+      $("#client-list-" + id).hide()
+      $(evt.target).data('state', 'closed')
+      $(evt.target).removeClass('glyphicon-collapse-down')
+      $(evt.target).addClass('glyphicon-expand')
+
+$(document).ready(page_functions)
+$(document).on('page:load', page_functions)
