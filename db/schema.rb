@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022170208) do
+ActiveRecord::Schema.define(version: 20141024034949) do
 
   create_table "address_entries", force: true do |t|
     t.float    "lat"
@@ -23,6 +23,11 @@ ActiveRecord::Schema.define(version: 20141022170208) do
     t.integer  "zip"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "api_actions", force: true do |t|
+    t.string  "name"
+    t.integer "role_id"
   end
 
   create_table "client_flags", force: true do |t|

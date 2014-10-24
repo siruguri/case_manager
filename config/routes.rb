@@ -32,6 +32,7 @@ CaseManager::Application.routes.draw do
       namespace :v1 do
          get '/clients' => 'clients#search'
         post '/client/:id' => 'clients#update'
+        post '/clients' => 'clients#update'
         post '/profile/:cmd(.:format)' => 'profiles#process_cmd'
       end
     end

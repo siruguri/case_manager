@@ -40,6 +40,14 @@ class User < ActiveRecord::Base
 
   def last_action
     acts=self.user_actions
-    acts.empty? ? "No action recorded!" : acts.last.created_at
+    acts.empty? ? "No action recorded!" : acts.last.created_at.to_time.strftime('%b %d, %Y (%H:%M)')
+  end
+
+  def last_sign_in
+    if self.last_sign_in_at.nil?
+      'N/A'
+    else
+      last_sign_in_at.to_time.strftime('%b %d, %Y (%H:%M)')
+    end
   end
 end

@@ -1,8 +1,34 @@
-%ul.volunteer_list
-  - user.volunteers.each do |vol|
-    %li
-      = vol.full_name
-      (status:
-      %span{class: vol.is_current? ? 'current':'not_current'}>
-        = vol.is_current? ? 'Current':'Not Current'
-      = ", last action at: #{vol.last_action})"
+%table.table.table-striped
+  %thead
+    %tr.table-striped
+      %td
+        Name
+      %td
+        Total Checkins
+      %td
+        Last Checkin
+      %td 
+        Clients
+      %td
+        Status
+  %tbody.volunteers-table
+    - user.volunteers.each do |vol|
+      %tr
+        %td
+          = vol.full_name
+        %td
+          = vol.sign_in_count
+        %td
+          = vol.last_sign_in
+        %td
+          = vol.clients.size
+        %td
+          %span{class: vol.is_current? ? 'current':'not_current'}>
+            = "#{vol.is_current? ? 'Current':'Not Current'}, last action at: #{vol.last_action}"
+      %tr.client-list
+        %td{colspan: 2}
+          %ul.client_sortable
+            - vol.clients.order(:priority).each do |ct|
+              %li.ui-state-default{id: ct.id}
+                = ct.display_name
+

@@ -4,7 +4,7 @@
 
   - if @user.has_role(:manager)
     %h1 
-      Your Volunteers
+      Volunteers
     = render partial: 'volunteers_list', locals: {user: @user}
     %hr
 
