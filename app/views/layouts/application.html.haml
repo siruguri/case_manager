@@ -18,6 +18,7 @@
   %body
     = render "navigation"
     .container.main
+      .general_messages
       -if flash[:notice] or flash[:alert]
         .container
         -if flash[:notice]
