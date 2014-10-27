@@ -17,6 +17,10 @@ class Client < ActiveRecord::Base
   has_many :client_flags
   has_many :yes_no_flags, through: :client_flags
 
+  def self.with_yesno_flag(flag_sym)
+    joins(:yes_no_flags).where yes_no_flags: {key: "#{flag_sym}"}
+  end 
+
   def self.change_priorities(p_list, case_contact_id=-1)
     # Given a list of integer id, priority pairs, set this as the new priority list for all of those idsxs
     # If the case contact id is given then assume the p_list is the list of client ids in priority order, else
@@ -31,7 +35,6 @@ class Client < ActiveRecord::Base
 
     ActiveRecord::Base.transaction do
       (final_list.sort { |a, b| a[1] <=> b[1] }).each do |pair|
-        puts ">>> updating #{pair[0]} to pri #{pair[1]}"
         c=Client.find_by_id(pair[0])
         c.update_attributes(priority: pair[1])
         c.save

@@ -13,7 +13,7 @@
       None
   - else
     %ul.clients_list
-      - clients.each do |ct|
+      - clients.order(:priority).each do |ct|
         %li
           = link_to ct.display_name, ct
           - if user.has_role :volunteer

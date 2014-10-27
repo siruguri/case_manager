@@ -8,25 +8,23 @@
     = render partial: 'volunteers_list', locals: {user: @user}
     %hr
 
-  %h1
-    - if @user.has_role(:manager)
-      Client Alerts
-    - else
+  - if @user.has_role(:volunteer)
+    %h1
       Your Clients
+    By Priority
+    %p
+    = render partial: 'clients_list', locals: {user: @user}
 
-  = render partial: 'clients_list', locals: {user: @user}
+    %h1
+      Your Form Entries
 
-  %h1
-    Your Form Entries
+    = render partial: 'form_entries/entry_list', locals: {entries: @user.form_entries}
 
-  = render partial: 'form_entries/entry_list', locals: {entries: @user.form_entries}
+    %h1
+      Your Past Actions
 
-  %h1
-    Your Past Actions
+    = text_field_tag :action_desc, nil, placeholder: 'Enter New Action', size: 50
+    = button_tag 'Add To Your Record', id: 'add_action'
 
-  = text_field_tag :action_desc, nil, placeholder: 'Enter New Action', size: 50
-  = button_tag 'Add To Your Record', id: 'add_action'
-
-  %hr
-
-  = render partial: 'actions_list', locals: {user: @user}
+    %hr
+    = render partial: 'actions_list', locals: {user: @user}

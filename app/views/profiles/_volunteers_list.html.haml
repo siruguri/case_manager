@@ -16,6 +16,8 @@
       %tr
         %td
           = vol.full_name
+          - if !vol.clients.with_yesno_flag(:special_attention).empty?
+            %img.img-responsive.small-img-span{src: 'assets/alertIcon.png', title: 'Has clients with alerts'}
         %td
           = vol.sign_in_count
         %td
@@ -28,9 +30,23 @@
           %span{class: vol.is_current? ? 'current':'not_current'}>
             = "#{vol.is_current? ? 'Current':'Not Current'}, last action at: #{vol.last_action}"
       %tr.client-list{id: "client-list-#{vol.id}"}
-        %td{colspan: 2}
-          %ul.client_sortable
-            - vol.clients.order(:priority).each do |ct|
-              %li.ui-state-default{id: ct.id}
-                = ct.display_name
-
+        %td{colspan: 5}
+          %table.table
+            %th
+              %td Name
+              %td Last Contact
+              %td Alerts
+              %td
+              %td
+            %tbody.client_sortable
+              - vol.clients.order(:priority).each do |ct|
+                %tr{id: ct.id}
+                  %td
+                    = link_to ct.display_name, ct
+                  %td
+                    = ct.field_notes.empty? ? '' : ct.field_notes.order('updated_at DESC').first.updated_at.to_time.strftime('%b %d, %Y (%H:%M)')
+                  %td
+                    %span{class: ct.has_flag?(:special_attention) ? 'red-font bold-font':'green-font'}
+                      = ct.has_flag?(:special_attention) ? 'Needs Attention':''
+                  %td
+                  %td
