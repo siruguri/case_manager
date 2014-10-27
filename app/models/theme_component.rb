@@ -7,30 +7,27 @@ class ThemeComponent < ActiveRecord::Base
     # Use method_missing to convert a method call to the theme value
 
     # Pass control to super except for specific methods
-    if !(/^config_/.match "#{sym}")
+    method_name = "#{sym}"
+    if !(/^config_/.match method_name)
       return super
     end
 
-    sym = "#{sym}".gsub(/^config_/, '').to_sym
+    method_name = method_name.gsub(/^config_/, '')
     
-    if /\=$/.match "#{sym}"
+    if /\=$/.match method_name
       is_assign=true
     else
       is_assign=false
     end
 
-    sym = "#{sym}".gsub(/\=?$/, '').to_sym
+    sym = method_name.gsub(/\=?$/, '').to_sym
 
     if is_assign
       self.theme_config ||= {}
       self.theme_config[sym]=args[0]
     end
 
-    if self.theme_config.nil?
-      return nil
-    end
-
-    return self.theme_config[sym]
+    self.theme_config.nil? ? nil : self.theme_config[sym]
 
   end
 
