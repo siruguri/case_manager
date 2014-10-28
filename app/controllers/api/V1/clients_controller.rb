@@ -83,6 +83,15 @@ module Api
         true
       end
 
+      def update_case_contact(ct, params)
+        ct.case_contact_id = params[:new_case_contact_id]
+        if ct.save
+          true
+        else
+          false
+        end
+      end
+
       def set_client_priorities(ct, params)
         send_list = params[:priorities].each_with_index.map { |p, idx| [p.to_i, idx] }
         Client.change_priorities send_list, -1

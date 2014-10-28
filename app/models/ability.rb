@@ -15,14 +15,14 @@ class Ability
           Role.supersedes(user.role, action.role)
         end
         
-        if user.has_role(:manager)
+        if user.has_role?(:manager)
           can :manage, Client, {case_contact_id: user.volunteers.map { |vol| vol.id }}
           can :manage, User, {manager: user}
           can :access, :rails_admin   # grant access to rails_admin
           can :dashboard  
 
         end
-        if user.has_role(:volunteer)
+        if user.has_role?(:volunteer)
           can :create, FormEntry
           can :manage, Client, {case_contact_id: user.id}
           can [:read, :update], FormEntry do |fe|

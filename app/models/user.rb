@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     self.admin
   end
 
-  def has_role(sym)
+  def has_role?(sym)
     # The admins have all roles.
     if sym.class==String
       sym = sym.to_sym
@@ -26,6 +26,13 @@ class User < ActiveRecord::Base
     self.is_admin? or self.role.name.to_sym == sym
   end
 
+  def display_name
+    if self.first_name
+      "#{self.first_name} #{self.last_name}"
+    else
+      self.last_name
+    end
+  end
 
   def is_current?
     # If actions are more recent than some number of days

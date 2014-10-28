@@ -2,13 +2,13 @@
   .glyphicon.glyphicon-user
   = "#{@user.full_name} (#{@user.email})"
 
-  - if @user.has_role(:manager)
+  - if @user.has_role?(:manager)
     %h1 
       Volunteers
     = render partial: 'volunteers_list', locals: {user: @user}
     %hr
 
-  - if @user.has_role(:volunteer)
+  - if @user.has_role?(:volunteer)
     %h1
       Your Clients
     By Priority

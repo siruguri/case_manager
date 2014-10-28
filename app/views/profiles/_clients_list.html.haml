@@ -1,10 +1,10 @@
-- if user.has_role :manager
+- if user.has_role? :manager
   - client_list=user.volunteers.map { |v| [v.full_name, v.clients.select { |ct| ct.has_flag?(:special_attention) }] }
 - else
   - client_list=[[user.full_name, user.clients]]
 
 - client_list.each do |case_contact_name, clients|
-  - if user.has_role :manager
+  - if user.has_role? :manager
     Case Contact:
     = case_contact_name
 
@@ -16,7 +16,7 @@
       - clients.order(:priority).each do |ct|
         %li
           = link_to ct.display_name, ct
-          - if user.has_role :volunteer
+          - if user.has_role? :volunteer
             (Needs Attention:
             %span{class: ct.has_flag?(:special_attention) ? 'red-font bold-font':'green-font'}
               = ct.has_flag?(:special_attention) ? 'Yes':'No'

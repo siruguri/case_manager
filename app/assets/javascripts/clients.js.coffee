@@ -1,5 +1,8 @@
 # /* For toggling the flags */
 
+client_id = ->
+	$(".client_info").data('client-id')
+
 toggle_display = (json_data, refname) ->
     target_classname = '.flag_' + refname
     $(".flag"+target_classname+" span").text(json_data['flag_value'])
@@ -48,3 +51,18 @@ manage_tabs = ->
 
 $(document).on('page:load', manage_tabs)
 $(document).ready(manage_tabs)
+
+change_client = ->
+	$(".case-contact-select").click ->
+		url = '/api/v1/client/' + client_id() + '/?api_action=update_case_contact'
+		cc_id=$(this).data 'case-contact-id'
+		$.ajax({
+			url: url,
+			type: 'post',
+			dataType: 'json',
+			data: {new_case_contact_id: cc_id}
+			})
+		$(this).parents('.dropdown').find('.case-contact-name').html($(this).find('a').html())
+
+$(document).on('page:load', change_client)
+$(document).ready(change_client)

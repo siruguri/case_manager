@@ -1,10 +1,25 @@
 .clients
 
-  %h3
-    Client:
-    = "#{@client.first_name} #{@client.last_name}"
-  MR Number: 
-  = @client.mr_number ? @client.mr_number : "No MR number recorded!"
+  .section-title
+    // Holding this for the Javascript on this page.
+    .client_info{'data-client-id' => @client.id}
+    %span.large-font.bold-font
+      Client:
+      = "#{@client.first_name} #{@client.last_name}"
+    = "(MR Number: #{@client.mr_number ? @client.mr_number : 'No MR number recorded!'})"
+
+  - if current_user.has_role? :manager
+    .dropdown
+      %button.btn.btn-default.dropdown-toggle{'type' => 'button', 'data-toggle' => "dropdown"}
+        Case Contact:
+        %span.case-contact-name
+          = @client.case_contact.full_name
+        %span.caret
+      %ul.dropdown-menu{'role' => "menu"}
+        - current_user.volunteers.each do |v|
+          %li.case-contact-select{'role' => "presentation", 'data-case-contact-id' => v.id}
+            %a{'role' => "menuitem", 'tabindex' => "-1"}
+              = v.full_name
 
   .tabs
     .tab-links<>
