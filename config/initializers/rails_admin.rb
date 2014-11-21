@@ -1,5 +1,6 @@
 RailsAdmin.config do |config|
-
+  config.included_models = ["FreeTextQuestion", "MultipleChoiceQuestion", "FormStructure", "FormStructureEntry"]
+  
   ### Popular gems integration
 
   # == Devise ==
