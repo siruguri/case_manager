@@ -6,7 +6,7 @@ ruby '2.1.5'
 gem 'rails', '~> 4'
 
 # Uncomment this for Heroku
-# gem 'rails_12factor'
+gem 'rails_12factor'
 
 gem 'thin'
 
