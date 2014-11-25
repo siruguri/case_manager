@@ -43,8 +43,12 @@ class ApplicationController < ActionController::Base
 
   def create_navbar_data
     @navbar_entries = NavbarEntry.all.map do |entry|
-      {title: entry.title, url: entry.url }
+      if entry.user_id == -1 || Ability.new(current_user).can?(:read, entry)
+        {title: entry.title, url: entry.url }
+      end
     end
+    @navbar_entries.compact!
+    puts ">>> #{@navbar_entries}"
 
     @dropdown_forms=FormStructure.joins(:author).where('users.employer_id = ?', current_user.employer_id) if current_user
   end

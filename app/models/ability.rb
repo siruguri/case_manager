@@ -11,6 +11,8 @@ class Ability
       else
         # Users can see their own profiles
         can :manage, User, {id: user.id}
+        can :read, NavbarEntry, {user_id: user.id}
+        
         can :run_api_command, ApiAction do |action|
           Role.supersedes(user.role, action.role)
         end

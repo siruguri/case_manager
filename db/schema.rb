@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024034949) do
+ActiveRecord::Schema.define(version: 20141125171845) do
 
   create_table "address_entries", force: true do |t|
     t.float    "lat"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 20141024034949) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "oauth_access_grants", force: true do |t|
