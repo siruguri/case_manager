@@ -53,6 +53,10 @@ RailsAdmin.config do |config|
       :fse_question_snippet
     end
 
+    configure :question do
+      label 'Pick a question'
+    end
+
     list do
       sort_by :sort_order
       field :form_structure
