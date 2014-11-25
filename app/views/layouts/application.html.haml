@@ -23,10 +23,10 @@
         .container
         -if flash[:notice]
           .alert.alert-info
-            #{flash[:notice]}
+            #{raw(flash[:notice])}
         -if flash[:alert]
           .alert.alert-danger
-            #{flash[:alert]}
+            #{raw(flash[:alert])}
 
       = yield
 

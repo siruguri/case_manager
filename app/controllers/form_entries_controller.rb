@@ -1,5 +1,5 @@
 class FormEntriesController < ApplicationController
-  include CustomProcessFormEntry
+  include CustomClientManager
   load_and_authorize_resource
 
   def new
@@ -18,9 +18,14 @@ class FormEntriesController < ApplicationController
     end
 
     @form_entry.form_cross_references.build
-    @form_entry.clients.build
-    client = @form_entry.clients.last
-    client.form_tracking_ids.build
+    if params[:client_id] && (ct=Client.find params[:client_id].to_i)
+      @form_entry.clients << ct
+    else
+      @form_entry.clients.build
+    end
+    
+    client=@form_entry.clients.last
+    client.form_tracking_ids.build if client.form_tracking_ids.empty?
   end
 
   def create
@@ -59,7 +64,7 @@ class FormEntriesController < ApplicationController
         custom_add_client_flags ct, @form_entry
       end
 
-      flash[:notice] = "#{t(:successful_form_entry)} for patient ID #{@form_entry.clients[0].id}"
+      flash[:notice] = custom_form_message(@form_entry) || "#{t(:successful_form_entry)} for patient ID #{@form_entry.clients[0].id}"
       redirect_to '/profile'
     else
       flash[:alert] = 'Something went wrong in saving the form entry.'

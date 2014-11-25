@@ -21,8 +21,7 @@
       = c.text_field :mr_number
       = c.fields_for :form_tracking_ids do |ft_id|
         = ft_id.label :tracking_id, "Enrolment ID:"
-        = ft_id.text_field :tracking_id, class: 'enrolment-id', value: "EED#{ENV['COMPUTER_NAME']}0000", readonly: true
-
+        = ft_id.text_field :tracking_id, class: 'enrolment-id', value: "#{ft_id.object.tracking_id ? ft_id.object.tracking_id : 'EED' + ENV['COMPUTER_NAME'] + '0000'}", readonly: true
     %hr
 
     - @form_entry.form_answers.each_with_index do |f_a, idx|

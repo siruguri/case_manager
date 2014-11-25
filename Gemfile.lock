@@ -354,6 +354,7 @@ DEPENDENCIES
   pry-remote
   pry-stack_explorer
   rails (~> 4)
+  rails_12factor
   rails_admin!
   resque
   resque-scheduler
