@@ -37,10 +37,20 @@ RailsAdmin.config do |config|
     object_label_method do
       :question_snippet
     end
+
+    list do
+      field :display_value
+      field :key
+    end
   end
   config.model 'MultipleChoiceQuestion' do
     object_label_method do
       :question_snippet
+    end
+
+      list do
+      field :display_value
+      field :key
     end
   end
   config.model 'FormStructure' do
@@ -52,7 +62,10 @@ RailsAdmin.config do |config|
     object_label_method do
       :fse_question_snippet
     end
-
+    configure :question do
+      label 'Pick a question'
+    end
+    
     list do
       sort_by :sort_order
       field :form_structure
