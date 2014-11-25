@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20141125171845) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "address_entries", force: true do |t|
     t.float    "lat"
     t.float    "long"
@@ -128,14 +131,6 @@ ActiveRecord::Schema.define(version: 20141125171845) do
     t.string "key"
   end
 
-  create_table "multiple_choice_entries", force: true do |t|
-    t.integer  "choice_index"
-    t.integer  "multiple_choice_question_id"
-    t.integer  "form_entry_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "multiple_choice_questions", force: true do |t|
     t.string   "display_value"
     t.text     "choices"
@@ -165,7 +160,7 @@ ActiveRecord::Schema.define(version: 20141125171845) do
     t.string   "scopes"
   end
 
-  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
 
   create_table "oauth_access_tokens", force: true do |t|
     t.integer  "resource_owner_id"
@@ -178,9 +173,9 @@ ActiveRecord::Schema.define(version: 20141125171845) do
     t.string   "scopes"
   end
 
-  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
-  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
-  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: true do |t|
     t.string   "name",         null: false
@@ -191,7 +186,7 @@ ActiveRecord::Schema.define(version: 20141125171845) do
     t.datetime "updated_at"
   end
 
-  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "organizations", force: true do |t|
     t.string   "name"
@@ -258,8 +253,8 @@ ActiveRecord::Schema.define(version: 20141125171845) do
     t.integer  "employer_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "visits", force: true do |t|
     t.datetime "visit_date"

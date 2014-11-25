@@ -48,8 +48,6 @@ class ApplicationController < ActionController::Base
       end
     end
     @navbar_entries.compact!
-    puts ">>> #{@navbar_entries}"
-
     @dropdown_forms=FormStructure.joins(:author).where('users.employer_id = ?', current_user.employer_id) if current_user
   end
 
