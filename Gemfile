@@ -8,6 +8,7 @@ gem 'rails', '~> 4'
 # Uncomment this for Heroku
 gem 'rails_12factor'
 
+gem 'quiet_assets'
 gem 'thin'
 
 # Admin Interface
