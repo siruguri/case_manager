@@ -1,0 +1,57 @@
+body {
+ height: auto;
+ width: 100%;
+ font-family: 'Cabin', sans-serif;
+ font-size: 18px;
+ background: antiquewhite;
+}
+
+.bold-font {
+    font-weight: bold;
+}
+
+.italicized-font {
+    font-style: italic;
+}
+
+.red-font {
+    color: red;
+}
+
+.green-font {
+    color: green;
+}
+
+.large-font {
+    font-size: 1.5em;
+}
+	    
+.section-title {
+    margin-bottom: 10px;
+}
+
+a {
+  color: brown;
+}
+
+hr {
+   border-color: black;
+}
+
+thead {
+    font-weight: bold;
+}
+
+.table-striped {
+    background-color: #f5f5dc;
+}
+
+.small-img-span {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+}
+
+.form-row {
+  margin: 10px;
+}

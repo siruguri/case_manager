@@ -25,7 +25,7 @@ en:
   successful_resource_creation: "Resource successfully created"
   successful_resource_update: "Resource successfully updated"
   errors_found: "Errors found"
-  access_denied_message: "Please sign in to access that page."
+  not_authorized: "You are not authorized to perform that action."
   profile_needs_sign_in: "Please sign in to access that page."
   volunteers_create_formentry: "You have to be a registered and signed-in volunteer to create a form entry."
   message_404: "You appear to want something that's not there."

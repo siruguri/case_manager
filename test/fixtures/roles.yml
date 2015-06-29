@@ -1,0 +1,8 @@
+volunteer_role:
+  name: volunteer
+
+admin_role:
+  name: admin
+
+manager_role:
+  name: manager

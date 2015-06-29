@@ -20,7 +20,7 @@ CaseManager::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = true
+  config.serve_static_files = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -84,10 +84,8 @@ CaseManager::Application.configure do
   config.action_mailer.smtp_settings = {
     :address   => "smtp.mandrillapp.com",
     :port      => 587, # ports 587 and 2525 are also supported with STARTTLS
-    :enable_starttls_auto => true, # detects and uses STARTTLS
     :user_name => "sameer@dstrategies.org",
     :password  => ENV['MANDRILL_API_KEY'], # SMTP password is any valid API key
-    :authentication => 'login', # Mandrill supports 'plain' or 'login'
     :domain => 'casemanager.com', # your domain to identify your server when connecting
   }
 

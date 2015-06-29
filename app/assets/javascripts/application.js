@@ -9,12 +9,12 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require bootstrap.min
+//= require bootstrap-sprockets
 //= require turbolinks
 //= require underscore
-//= require bootstrap-switch.min
-//= require_tree .
+//= require clients
+//= require profiles
+//= require form_entries

@@ -38,3 +38,4 @@ pickle-email-*.html
 public/assets/*
 db/sphinx/
 log/
+.DS_Store

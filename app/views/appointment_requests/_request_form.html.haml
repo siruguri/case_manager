@@ -1,0 +1,8 @@
+= form_for(@appointment_request) do |f|
+  .form-row
+    = f.label :request_time, 'Time of Request'
+    = f.datetime_select :request_time, default: (Time.now + 1.days), minute_step: 15
+  .form-row
+    = f.label :volunteer_id, 'Select Volunteer'
+    = f.select :volunteer_id, @user.volunteers.all.collect { |c| [c.full_name, c.id]}
+  

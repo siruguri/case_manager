@@ -1,0 +1,41 @@
+DEFAULTS: &DEFAULTS
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  admin: false
+
+volunteer_user11:
+  full_name: Volunteer 11
+  email: volunteer_user11@valid.com
+  role: volunteer_role
+  manager: manager1
+  <<: *DEFAULTS
+
+volunteer_user12:
+  full_name: Volunteer 12
+  email: volunteer_user12@valid.com
+  role: volunteer_role
+  manager: manager1
+  <<: *DEFAULTS
+
+volunteer_user21:
+  email: volunteer_user21@valid.com
+  role: volunteer_role
+  manager: manager2
+  <<: *DEFAULTS
+
+admin_user:
+  <<: *DEFAULTS
+  email: admin_user@valid.com
+  admin: true
+
+manager1:
+  <<: *DEFAULTS
+  email: manager1@valid.com
+  role: manager_role
+  full_name: Manager 1
+  admin: true
+
+manager2:
+  <<: *DEFAULTS
+  email: manager2@valid.com
+  role: manager_role
+  admin: true

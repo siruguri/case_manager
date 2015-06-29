@@ -10,9 +10,12 @@ class User < ActiveRecord::Base
   has_many :clients, foreign_key: :case_contact_id
 
   belongs_to :employer, class_name: 'Organization'
-
-  has_many :form_entries, foreign_key: :form_author_id
+  has_many :appointment_requests
+  
   has_many :user_actions
+
+  has_many :skill_claims
+  has_many :worker_skills, through: :skill_claims
 
   def is_admin?
     self.admin
@@ -24,14 +27,6 @@ class User < ActiveRecord::Base
       sym = sym.to_sym
     end
     self.is_admin? or self.role.name.to_sym == sym
-  end
-
-  def display_name
-    if self.first_name
-      "#{self.first_name} #{self.last_name}"
-    else
-      self.last_name
-    end
   end
 
   def is_current?

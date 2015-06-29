@@ -12,13 +12,11 @@
       %td
         Status
   %tbody.volunteers-table
-    - user.volunteers.each do |vol|
+    - @user.volunteers.each do |vol|
       %tr
         %td
           = vol.full_name
-          - if !vol.clients.with_yesno_flag(:special_attention).empty?
-            %img.img-responsive.small-img-span{src: 'assets/alertIcon.png', title: 'Has clients with alerts'}
-        %td
+        %td.sign-in-count
           = vol.sign_in_count
         %td
           = vol.last_sign_in
@@ -28,7 +26,8 @@
             %span.expand-icon.glyphicon.glyphicon-expand{'data-vol-id' => "#{vol.id}", "data-state" => 'closed'}
         %td
           %span{class: vol.is_current? ? 'current':'not_current'}>
-            = "#{vol.is_current? ? 'Current':'Not Current'}, last action at: #{vol.last_action}"
+            #{vol.is_current? ? 'Current':'Not Current'}, last action at: #{vol.last_action}
+
       %tr.client-list{id: "client-list-#{vol.id}"}
         %td{colspan: 5}
           %table.table

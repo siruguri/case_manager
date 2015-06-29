@@ -18,6 +18,7 @@ class Ability
         end
         
         if user.has_role?(:manager)
+          can :manage, AppointmentRequest
           can :manage, Client, {case_contact_id: user.volunteers.map { |vol| vol.id }}
           can :manage, User, {manager: user}
           can :access, :rails_admin   # grant access to rails_admin
@@ -25,6 +26,7 @@ class Ability
 
         end
         if user.has_role?(:volunteer)
+          can :read, AppointmentRequest, {volunteer: user}
           can :create, FormEntry
           can :manage, Client, {case_contact_id: user.id}
           can [:read, :update], FormEntry do |fe|
